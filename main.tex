@@ -14,7 +14,7 @@
 %\usepackage[cp1250]{inputenc} % jeśli kodowanie edytowanych plików to cp1250 
 \usepackage[utf8]{inputenc} % jeśli kodowanie edytowanych plików to UTF8
 \usepackage[T1]{fontenc}
-\usepackage[polish]{babel}
+\usepackage[english]{babel}
 %\DisemulatePackage{setspace}
 \usepackage{setspace}
 \usepackage{tabularx}
@@ -412,9 +412,9 @@
 \begin{picture}(0,0)
 \put(26,-124){\fbox{
 \parbox[c][71mm][c]{104mm}{\centering%\lineskip=34pt 
-\fontsize{16pt}{18pt}\selectfont \@title\\[5mm]
-\fontsize{16pt}{18pt}\selectfont \@titleEN\\[20mm]
-\fontsize{16pt}{18pt}\selectfont AUTOR:\\[2mm]
+\fontsize{16pt}{18pt}\selectfont \@titleEN\\[5mm]
+\fontsize{16pt}{18pt}\selectfont \@title\\[20mm]
+\fontsize{16pt}{18pt}\selectfont AUTHOR:\\[2mm]
 \fontsize{14pt}{16pt}\selectfont \@author}
 }
 }
@@ -430,19 +430,19 @@
 	}
 {\flushleft\fontsize{14pt}{16pt}\selectfont%
 \begin{tabular}{ll}
-KIERUNEK: & \@kierunek\\
-SPECJALNOŚĆ: & \@specjalnosc\\
+FIELD: & \@kierunek\\
+SPECIALIZATION: & \@specjalnosc\\
 \end{tabular}\\[1.3cm]
 }
 {\centering
-{\fontsize{32pt}{36pt}\selectfont PRACA DYPLOMOWA}\\[0.5cm]
-{\fontsize{32pt}{36pt}\selectfont INŻYNIERSKA}\\[2.5cm]
+{\fontsize{32pt}{36pt}\selectfont ENGINEERING}\\[0.5cm]
+{\fontsize{32pt}{36pt}\selectfont THESIS}\\[2.5cm]
 }
 \vfill
 \begin{tabularx}{\linewidth}{p{6cm}l}
-		&{\fontsize{16pt}{18pt}\selectfont PROWADZĄCY PRACĘ:}\\[2mm] %UWAGA: tutaj jest miejsce na nazwisko promotora pracy
+		&{\fontsize{16pt}{18pt}\selectfont SUPERVISOR:}\\[2mm] %UWAGA: tutaj jest miejsce na nazwisko promotora pracy
 		&{\fontsize{14pt}{16pt}\selectfont \@promotor}\\[10mm]
-		&{\fontsize{16pt}{18pt}\selectfont OCENA PRACY:}\\[20mm]
+		&{\fontsize{16pt}{18pt}\selectfont GRADE:}\\[20mm]
 	\end{tabularx}
 \vspace{2cm}
 \hrule\vspace*{0.3cm}
@@ -464,16 +464,16 @@ SPECJALNOŚĆ: & \@specjalnosc\\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Metadane dokumentu 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Szablon pracy dyplomowej inżynierskiej/magisterskiej, wersja 0.2}
-\titleShort{Szablon pracy dyplomowej ...}
-\titleEN{Engineering/master thesis template, version 0.2}
-\author{Imię Nazwisko}
-\uczelnia{POLITECHNIKA WROCŁAWSKA}
-\wydzial{WYDZIAŁ ELEKTRONIKI}
+\title{Aplikacja mobilna zapewniająca dostęp offline do danych publikowanych w systemie obsługi studentów}
+\titleShort{Mobile application providing offline access...}
+\titleEN{Mobile application providing offline access to data published in a student services system}
+\author{Justyna Skalska}
+\uczelnia{WROCŁAW UNIVERSITY OF SCIENCE AND TECHNOLOGY}
+\wydzial{FACULTY OF ELECTRONICS}
 \kierunek{INFORMATYKA}
 \specjalnosc{INŻYNIERIA SYSTEMÓW INFORMATYCZNYCH}
-\promotor{tytuł, Imię Nazwisko, Jednostka}
-\date{WROCŁAW, 2016}
+\promotor{Dr inż Tomasz Kubik, K-9}
+\date{WROCŁAW, 2019}
 
 % Ustawienie odstępu od góry w nienumerowanych rozdziałach oraz wykazach:
 % Spis treści, Spis tabel, Spis rysunków, Indeks rzeczowy
@@ -503,17 +503,6 @@ SPECJALNOŚĆ: & \@specjalnosc\\
 %\settypeoutlayoutunit{cm} % do debugowania
 %\typeoutstandardlayout    % wypisuje na stdout informacje o ustawieniach
 \maketitle
-
-\newpage
-\thispagestyle{empty}
-\mbox{}\vfill
-\noindent\begin{tabular}{@{}ll} Opracował: & Tomasz Kubik <tomasz.kubik@pwr.edu.pl>\\
- Data: & maj 2016 
- \end{tabular}\\[15mm]
-\noindent\includegraphics[width=3cm]{by-nc-sa}\newline
-{\normalfont 
-Szablon jest udostępniany na licencji Creative Commons: \emph{Uznanie autorstwa -- Użycie niekomercyjne -- Na tych samych warunkach, 3.0 Polska}, Wrocław 2016. \\[2pt]
-Oznacza to, że wszystkie zawarte  nim treści można kopiować i  wykorzystywać do celów niekomercyjnych, a także tworzyć na ich podstawie utwory zależne pod warunkiem podania autora i~nazwy licencjodawcy oraz udzielania na utwory zależne takiej samej licencji. Tekst licencji jest dostępny pod adresem: \url{http://creativecommons.org/licenses/by-nc-sa/3.0/pl/}.}
 \newpage
 
 
@@ -541,25 +530,26 @@ Oznacza to, że wszystkie zawarte  nim treści można kopiować i  wykorzystywa�
 %\addcontentsline{toc}{chapter}{Spis tabel}
 \listoftables*
 
-\include{skroty} %skróty można sobie pominąć
+\include{abbreviations} %skróty można sobie pominąć
 \chapterstyle{default}
-\include{rozdzial01}
-\include{rozdzial02}
-\include{rozdzial03}
-\include{rozdzial04}
-\include{rozdzial05}
-\include{rozdzial06}
+\include{chapter01}
+\include{chapter02}
+\include{chapter03}
+\include{chapter04}
+\include{chapter05}
+\include{chapter06}
 
 %\bibliographystyle{plalpha}
 \bibliographystyle{plabbrv}
+% \bibliographystyle{plain}
 
 %UWAGA: bibliotekę referencji należy przygotować samemu. Dobrym do tego narzędziem jest JabRef.
 %       Nazwę przygotowanej biblioteki wpisuje się poniżej bez rozszerzenia 
 %       (w tym przypadku jest to "dokumentacja.bib")
-\bibliography{dokumentacja}
+\bibliography{bibliography}
 \appendix
-\include{dodatekA}
-\include{dodatekB}
+\include{appendixA}
+\include{appendixB}
 
 \chapterstyle{noNumbered}
 \phantomsection % sets an anchor
