@@ -2,3 +2,59 @@
 \section{System Architecture}
 \section{Database Design}
 \section{User Interface Design}
+
+% TODO - ask what about Sketch, do I need a link or sth?
+All mobile applications should be easy to use and intuitive. In our app, we used Material Design created by Google. It is also a part of the Flutter toolkit. To make the development quicker and easier, we created wireframes for all the main views of the application. To create them, we worked with a tool called Sketch, which is simple to use and has a lot of available libraries.
+
+There are seven main screens available. All of them are shown in Figure~\ref{fig:ux-flow}. The first screen is a login screen. After users enter the correct login and password, they are redirected to the homepage. There they can see their profile info and news for their university and faculty. On the bottom, there is a navigation bar from which they can get access to an additional four pages. The first of the is the calendar page where they can see their schedule. The next one is the grades page where they can view all their grades. After it, there is the messages page where users can access their e-mails and go to the messages details page. The last one is the finances page. It allows users to see all of their payments.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{fig04/mobile_ux_flow.png}
+    \caption{Mobile UX flow}
+    \label{fig:ux-flow}
+\end{figure}
+
+The first screen that is presented to users is the login screen. It is shown in Figure~\ref{fig:login-home}. There is a big logo of the application in the middle of the view. There are also two input boxes on the bottom of the screen with a button to submit them. If the data provided is incorrect, users are presented with a red error snack bar.
+
+The home screen, also presented in Figure~\ref{fig:login-home}, is the main page of the application. It contains profile info with the logged-in student's data. There is also a news feed section where users can access news from their university or faculty, depending on the configuration. In the top right corner of the screen, there are two icons. The first one allows users to log out of the application. By clicking on the next one, users can access the settings.
+
+\begin{figure}[htb]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+        a) & b) \\
+        \includegraphics[page=1,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=7,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} \\
+    \end{tabular}
+    \caption{Wireframes: a) login page, b) homepage} \label{fig:login-home}
+\end{figure}
+
+The calendar page shown in Figure~\ref{fig:calendar-finances-grades} contains a calendar with the list of dates. If a date is a holiday, there is an indicator shown in the right top corner of the container. An indicator at the bottom of the container informs users that they have some lectures during the selected date.
+When users click on a date, a list of classes is shown under the calendar. Every row contains the start and the end time of the event, its name, university teacher, classroom, and a type of the event.
+
+The next screen presented in Figure~\ref{fig:calendar-finances-grades} is the finances page. It is composed of a list of payments with their details. Every entry includes an amount, status, name, and the date of the payment's issue. Some of them also contain an installment number.
+
+The last screen from Figure~\ref{fig:calendar-finances-grades} consists of a grades list. Each entry contains a grade, number of ECTS credits, course name, type and university teacher, and issuing date. The icon in the top right corner allows users to calculate their average grade for a semester or the whole studies.
+
+\begin{figure}[htb]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        a) & b) & c) \\
+        \includegraphics[page=2,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=6,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=3,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} \\
+    \end{tabular}
+    \caption{Wireframes: a) calendar page, b) finances page, c) the grades page} \label{fig:calendar-finances-grades}
+\end{figure}
+
+The two last screens shown in Figure~\ref{fig:messages-and-details} present a list of messages and their details. The first page is composed of the email sender, topic, date received, and partial contents. When customers click on an email, they are redirected to the details page where the full contents of the email are shown along with Cc'd recipients. After users have read the email, they can get back to the emails list by clicking an arrow on the top of the screen. In the top right corner of the screen, there is an icon that is shown only when the user university's API allows for sending messages.
+
+\begin{figure}[htb]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+        a) & b) \\
+        \includegraphics[page=4,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=5,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} \\
+            \end{tabular}
+    \caption{Wireframes: a) messages page, b) message details page} \label{fig:messages-and-details}
+\end{figure}
