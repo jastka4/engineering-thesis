@@ -64,8 +64,8 @@
 %\hyphenpenalty=10000		% nie dziel wyrazów zbyt często
 \clubpenalty=10000      %kara za sierotki
 \widowpenalty=10000  % nie pozostawiaj wdów
-\brokenpenalty=10000		% nie dziel wyrazów między stronami
-\exhyphenpenalty=999999		% nie dziel słów z myślnikiem
+%\brokenpenalty=10000		% nie dziel wyrazów między stronami
+%\exhyphenpenalty=999999		% nie dziel słów z myślnikiem
 \righthyphenmin=3			% dziel minimum 3 litery
 
 %\tolerance=4500
@@ -113,13 +113,13 @@
 %%  Pakiety i komendy zastosowane tylko do zamieszczenia informacji o użytych komendach i fontach
 %%  Normalnie nie są potrzebne, można je zamarkować podczas redakcji pracy
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{memlays}     % extra layout diagrams, zastosowane w szblonie do 'debuggowania', używa pakietu layouts
-%\usepackage{layouts}
-\usepackage{printlen} % pakiet do wyświetlania wartości zdefiniowanych długości, stosowany do 'debuggowania'
-\uselengthunit{pt}
-\makeatletter
-\newcommand{\showFontSize}{\f@size pt} % makro wypisujące wielkość bieżącej czcionki
-\makeatother
+%%%\usepackage{memlays}     % extra layout diagrams, zastosowane w szblonie do 'debuggowania', używa pakietu layouts
+%%%%\usepackage{layouts}
+%%%\usepackage{printlen} % pakiet do wyświetlania wartości zdefiniowanych długości, stosowany do 'debuggowania'
+%%%\uselengthunit{pt}
+%%%\makeatletter
+%%%\newcommand{\showFontSize}{\f@size pt} % makro wypisujące wielkość bieżącej czcionki
+%%%\makeatother
 % do pokazania ramek można byłoby użyć:
 %\usepackage{showframe} 
 
@@ -410,10 +410,10 @@
 %\setlength{\fboxrule}{0.1mm} %% jeśli chcemy zobaczyć ramkę
 \setlength{\unitlength}{1mm}
 \begin{picture}(0,0)
-\put(26,-124){\fbox{
+\put(44,-129){\fbox{
 \parbox[c][71mm][c]{104mm}{\centering%\lineskip=34pt 
 \fontsize{16pt}{18pt}\selectfont \@titleEN\\[5mm]
-\fontsize{16pt}{18pt}\selectfont \@title\\[20mm]
+\fontsize{16pt}{18pt}\selectfont \@title\\[15mm]
 \fontsize{16pt}{18pt}\selectfont AUTHOR:\\[2mm]
 \fontsize{14pt}{16pt}\selectfont \@author}
 }
