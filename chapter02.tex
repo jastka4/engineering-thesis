@@ -1,8 +1,20 @@
 \chapter{Project Assumptions}
 \section{Overall Description}
 
-% TODO - add more details (opis świata rzeczywistego)
-The main goal of the project is to create a mobile application that can be connected to an API of any university. It will be done using Flutter framework and the Dart language. The app will be ready to run on both iOS and Android devices. Every student is required to log in to the system to access all of the functionalities. None of them can be used as an unauthenticated user.
+The main goal of the project is to create a mobile application that can be connected to an API of any university. It will be done using the Flutter framework and the Dart language. The app will be ready to run on both iOS and Android devices. Every student is required to have an existing account in their university system and log in to the mobile app to access all of the functionalities. None of them can be used as an unauthenticated user. After they log in, students will gain access to these pages:
+\begin{itemize}
+    \item home (user details and news from the faculty/university);
+    \item calendar with a schedule;
+    \item grades;
+    \item messages;
+    \item message details;
+    \item payments.
+\end{itemize}
+Users cannot make changes to any data shown on the listed pages. It is obtained from their university services system and stored on their local devices as read-only information.
+
+When a student logs in, a token received from the student service system will be saved to secure storage on the mobile device. It will be removed if the user explicitly logs out of the application. The token will be used to obtain data from the university system. It will also allow the system to store information about users and will not require them to log in each time they open the application. To log in, users will have to complete a form, where they will have to select their university from the drop-down list and provide login and password to the account in their university system.
+
+The homepage will show user details and news from the users' faculty and university. The next page will display a calendar that users can click on to select a date. After picking the day, students will receive a list of planned lectures with specifics like start and end time, lecturer, classroom, et cetera. The grades and payments pages will provide a list of items with some type-specific details. The former will also allow students to calculate the overall average grade of all grades relative to the ECTS weighting of the courses they have completed. The last one is the messages page. It will present all messages received by users in their university system. After they select one of the e-mails, they will be redirected to a more detailed view.
 
 \section{Functional Requirements}
 \begin{itemize}
@@ -12,6 +24,7 @@ The main goal of the project is to create a mobile application that can be conne
     \item The system will limit access to authorized users.
     \item Users should be able to browse calendars and calendar events.
     \item Users should be able to view the grades list.
+    \item The system should allow users to calculate their average grade.
     \item Users should be able to browse messages.
     \item Users should be able to see message details.
     \item Users should be able to browse the payments list.
@@ -20,14 +33,24 @@ The main goal of the project is to create a mobile application that can be conne
     \item Every user has to have an account in one of the available university systems.
 \end{itemize}
 
-% TODO - add more technologies and non-functional requirements
-% TODO - explain why we need Spring Boot, Spring Cloud Config, etc.
 \section{Non-functional Requirements}
 \begin{itemize}
     \item The system will be composed of 3 layers: mobile database, mobile application, and transformation server.
     \item The mobile SQLite database will store user data, grades, calendar events, payments, and messages.
-    \item The transformation server will be created using Java, Spring Boot, Spring MVC and Spring Cloud Config.
-    \item Version control will be done using Git and GitHub platform.
+    \item The mobile application will support Polish and English.
+    \item The transformation server will be created using the Java language and Spring Framework.
+    \item The server will use Spring Boot to accelerate the preparation and configuration.
+    \item The transformer will utilize Spring Could Config to provide a dynamic and simple way to update the university API configurations. The server will not have to be restarted to apply new settings because they will refresh automatically.
+    \item The configuration will be served as YAML files.
+    \item All requests will utilize the JSON format.
+    \item The transformation specification will use JSON format and will be handled by the Jolt library.
+    \item The authentication will be managed by the server and the university's external API.
+    \item The mobile application will be made using the Dart language and Flutter framework. It will allow generating two applications for both iOS and Android, using one codebase.
+    \item MockServer will be used to mock the external API to which the transformation server will send requests. It will ease the development and speed up testing.
+    \item Docker Compose will be used to define and run multi-container Docker applications, in this case, the transformation server and its configuration.
+    \item Version control will be supported by Git and GitHub platforms.
+    \item All tasks and issues will be managed with GitKraken Glo Board.
+    \item All development will be done using Android Studio IDE.
 \end{itemize}
 
 \section{Use Cases}
