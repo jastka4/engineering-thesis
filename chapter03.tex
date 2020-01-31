@@ -1,71 +1,105 @@
-% TODO - explain briefly in the project assumptions chapter and move to the chapter about implementation?
-\chapter{Tools and Technologies}
-\section{Flutter}
-Flutter is an open-source toolkit created by Google. It can be used to develop natively compiled applications for mobiles (iOS, Android), desktops (Mac, Linux, Windows, Google Fuchsia), and the web from a single codebase. Flutter's engine utilizes Google's Skia graphics library for low-level rendering. It is written primarily in C++. It also leverages platform-specific SDKs, for example, iOS and Android.
+\chapter{Project Design}
+\section{System Architecture}
 
-Developers use the Dart language when creating Flutter applications. The toolkit runs in the Dart virtual machine that features a just-in-time execution engine. It can be used while debugging an app to do a ``hot reload'', which modifies source files and then injects them into a running application. Flutter added a stateful hot reload on top of it, wherein most cases, changes to source code can be reflected immediately in the working app without requiring a restart or any loss of state.
+The system consists of two main components, as shown in Figure 1. The first is the Flutter application, which is installed on the user's smartphone. On the first run, it will create a local SQLite database with the required tables. Whenever a user logs in or navigates to a page, it will send a request for data to the second component, the server. It is composed of configuration and transformation modules. The former is responsible for providing the YAML configuration file in the transformation application. Because both use Spring Cloud Config, the transformation application does not need to be restarted when the config changes. Each time it is updated, the configuration server will pick up the changes and serve the updated content. Now beans from the client that were using the configuration must be refreshed. A simple way to do this is to send a GET request to the "/ refresh" endpoint provided by the Spring Boot Actuator.
 
-Release versions of Flutter apps are compiled with ahead-of-time (AOT) compilation on both iOS and Android, making Flutter's high performance on mobile devices possible.~\cite{flutter-wiki}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.66\textwidth]{fig03/system_architecture.png}
+    \caption{System architecture}
+    \label{fig:ux-flow}
+\end{figure}
 
-Creating UIs in Flutter involves using composition to assemble widgets from other widgets. According to the docs, ``A widget is an immutable description of part of a user interface''.~\cite{flutter} They define what their view should look like, given their current state and configuration. The widget rebuilds its description when it's state changes because the framework diffs against the previous representation to determine the minimal changes needed in the underlying render tree to transition from one state to the next.
+When the transformation server receives a request, for example from Listing~\ref{list:login-request}, it reads the university and searches for a configuration for this particular institution.
 
-Flutter aims to provide 120 frames per second (FPS) performance on devices capable of 120Hz updates and 60 FPS otherwise.
+\begin{lstlisting}[label=list:login-request,caption=Sample calendar request, basicstyle=\footnotesize\ttfamily]
+{
+    "username": "pwr123456",
+    "university": "pwr",
+    "startDate": "2020-01-01T00:00:00.000",
+    "endDate": "2020-02-01T00:00:00.000",
+},
+\end{lstlisting}
 
-Complex widgets can be built from other smaller ones. An app is actually the largest widget of all of them, often called ``MyApp''. Text component is a widget, but so is its TextStyle, than defines things like color, size, font-weight, and family. Some widgets represent things, others, like TextStyle, represent characteristics. There are also ones that do something, like StreamBuilder and FutureBuilder.
+A sample YAML configuration for calendars is shown in Listing~\ref{list:calendar-config}. It contains an object with the name "pwr" and a configuration for this university. Every config entry has to contain a name, address, a specification for Jolt transformation for request and response.
 
-An alternative option to using widgets is to use the Foundation library's methods directly. They can be used to draw text, shapes, and imagery directly on the canvas. One of the frameworks that utilized this is the open-source Flame game engine.
+\begin{lstlisting}[label=list:calendar-config,caption=Sample YAML configuration for calendars, basicstyle=\footnotesize\ttfamily, breaklines=true]
+calendars:
+    - name: 'pwr'
+      address: 'http://localhost:1080/calendars'
+      request: '[{"operation": "shift","spec": {"username": "user","studentNumber": "indeks","startDate": "date.start","endDate": "date.end"}}]'
+      response: '[{"operation": "shift","spec": {"events": {"*": {"eventName": "events.[&1].name","room": "events.[&1].classroom","type": "events.[&1].eventType","date": {"start": "events.[&2].startDateTime","end": "events.[&2].endDateTime"},"*": "events.[&1].&"}}}}]'
+\end{lstlisting}
 
-\section{Dart}
-Dart is a client-optimized programming language developed by Google. It is multiplatform and can be used to build desktop, mobile, backend, and web applications.
+Every transformation operation requires a specification.
 
-It is object-oriented, class defined, garbage-collected language. It uses a C-style syntax and can be transcompiled into JavaScript. It supports abstract classes, interfaces, mixins, static typing, reified generics, and a sound type system.
+% TODO - finish this
 
-Dart code can be compiled ahead-of-time into machine code. Applications build with Flutter, a mobile app SDK built with Dart, are deployed to app stores as AOT compiled Dart code.
+\section{Database Design}
 
-Dart version 2.6 was accompanied by a new extension dart2native. It allows composing a Dart program into self-contained executables on the macOS, Linux, and Windows desktop platforms. Earlier, this feature only exposed capability on iOS and Android mobile devices via Flutter.~\cite{dart-wiki}
+The mobile database is very straightforward. There are five separate tables as seen in Figure~\ref{fig:erd-diagram}. All of them are created during the first run of the application. Data received from the server is stored locally in the SQLite database. Every time the application sends a successful request, information in a chosen table is updated with new data. If there is no connection to the Internet, the app takes already stored details from the database instead of sending a request. Thanks to it, users can have constant access to data.
 
-\section{SQLite}
-SQLite is a relational database management system contained in a C-language library. It is embedded into the end program, unlike many other database management systems. It is built into most computers, all mobile phones and is bundled inside lots of applications that people use every day. It is a popular selection as an embedded database software for client/local storage in application software such as web browsers. It is one of the most used database engines, as it is used today by several widespread browsers, embedded systems, such as mobile phones, operating systems, among others. SQLite has bindings to many programming languages.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.66\textwidth]{fig03/erd_diagram.pdf}
+    \caption{ERD diagram for the mobile database}
+    \label{fig:erd-diagram}
+\end{figure}
 
-SQLite is ACID-compliant and follows PostgreSQL syntax while implementing most of the SQL standard. It uses weakly and dynamically typed SQL syntax that does not guarantee the domain integrity. A string can be inserted into a column defined as an integer. SQLite will try to convert data between formats when appropriate, for example, the string ``1234'' into an integer. However, it does not guarantee such conversion and will store the data as-is if such conversion is not possible.~\cite{sqlite-wiki}
+\section{User Interface Design}
 
-\section{Android Studio}
-Android Studio is an integrated development environment created by Google and built on JetBrains' IntelliJ IDEA software. It was specially designed for Android development. It can be downloaded on macOS, Windows, and Linux based operating systems. Previous versions of Android Studio were based on Eclipse IDE.~\cite{android-studio}
+% TODO - ask what about Sketch, do I need a link or sth?
+All mobile applications should be easy to use and intuitive. In our app, we used Material Design created by Google. It is also a part of the Flutter toolkit. To make the development quicker and easier, we created wireframes for all the main views of the application. To create them, we worked with a tool called Sketch, which is simple to use and has a lot of available libraries.
 
-Flutter apps can be built using any text editor combined with Flutter command-line tools. It is best to use the Flutter plugin with Android Studio. The plugin provides users with, for example, syntax highlighting, code completion, widget editing assist, run and debug support.
+There are seven main screens available. All of them are shown in Figure~\ref{fig:ux-flow}. The first screen is a login screen. After users enter the correct login and password, they are redirected to the homepage. There they can see their profile info and news for their university and faculty. On the bottom, there is a navigation bar from which they can get access to an additional four pages. The first of the is the calendar page where they can see their schedule. The next one is the grades page where they can view all their grades. After it, there is the messages page where users can access their e-mails and go to the messages details page. The last one is the finances page. It allows users to see all of their payments.
 
-\section{Java}
-\section{Spring Framework}
-\subsection{Spring MVC}
-\subsection{Spring Cloud Config}
-\subsection{Spring Boot}
-\section{Jolt}
-Jolt (JsOn Language for Transform) is a transformation library written in Java. It allows developers to convert one JSON structure to another using a schema created in JSON. The tool provides a set of transformation types:
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=\textwidth]{fig03/mobile_ux_flow.png}
+    \caption{Mobile UX flow}
+    \label{fig:ux-flow}
+\end{figure}
 
-\begin{itemize}
-    \item shift - copies data from input to the output tree;
-    \item default - applies default values to the tree;
-    \item remove - removes data from the tree;
-    \item sort - sorts map keys alphabetically;
-    \item cardinality - adjusts the cardinality of input data.
-\end{itemize}
+The first screen that is presented to users is the login screen. It is shown in Figure~\ref{fig:login-home}. There is a big logo of the application in the middle of the view. There are also two input boxes on the bottom of the screen with a button to submit them. If the data provided is incorrect, users are presented with a red error snack bar.
 
-Each of the types has its DSL, which is called a specification, that defines the new structure for outgoing JSON data.
+The home screen, also presented in Figure~\ref{fig:login-home}, is the main page of the application. It contains profile info with the logged-in student's data. There is also a news feed section where users can access news from their university or faculty, depending on the configuration. In the top right corner of the screen, there are two icons. The first one allows users to log out of the application. By clicking on the next one, users can access the settings.
 
-A basic approach for converting JSON to JSON in Java is to use XSLT or STX. The conversion sequence would look like this:
-\begin{center}
-\textbf{JSON -> XML -> XSLT/STX -> XML -> JSON}
-\end{center}
+\begin{figure}[htb]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+        a) & b) \\
+        \includegraphics[page=1,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=7,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} \\
+    \end{tabular}
+    \caption{Wireframes: a) login page, b) homepage} \label{fig:login-home}
+\end{figure}
 
-With Jolt, the conversion sequence is simplified and looks like this:
-\begin{center}
-\textbf{JSON -> Specification JSON -> JSON}
-\end{center}
+The calendar page shown in Figure~\ref{fig:calendar-finances-grades} contains a calendar with the list of dates. If a date is a holiday, there is an indicator shown in the right top corner of the container. An indicator at the bottom of the container informs users that they have some lectures during the selected date.
+When users click on a date, a list of classes is shown under the calendar. Every row contains the start and the end time of the event, its name, university teacher, classroom, and a type of the event.
 
-The out-of-the-box Jolt should be able to do most of the structural transformation. Any complex transformation logic which cannot be expressed in standard terms can be plugged in via Java extension class with Jolt.~\cite{jolt}
+The next screen presented in Figure~\ref{fig:calendar-finances-grades} is the finances page. It is composed of a list of payments with their details. Every entry includes an amount, status, name, and the date of the payment's issue. Some of them also contain an installment number.
 
-\section{JSON}
-\section{YAML}
+The last screen from Figure~\ref{fig:calendar-finances-grades} consists of a grades list. Each entry contains a grade, number of ECTS credits, course name, type and university teacher, and issuing date. The icon in the top right corner allows users to calculate their average grade for a semester or the whole studies.
 
-\section{MockServer}
-\section{Docker}
+\begin{figure}[htb]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        a) & b) & c) \\
+        \includegraphics[page=2,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=6,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=3,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} \\
+    \end{tabular}
+    \caption{Wireframes: a) calendar page, b) finances page, c) the grades page} \label{fig:calendar-finances-grades}
+\end{figure}
+
+The two last screens shown in Figure~\ref{fig:messages-and-details} present a list of messages and their details. The first page is composed of the email sender, topic, date received, and partial contents. When customers click on an email, they are redirected to the details page where the full contents of the email are shown along with Cc'd recipients. After users have read the email, they can get back to the emails list by clicking an arrow on the top of the screen. In the top right corner of the screen, there is an icon that is shown only when the user university's API allows for sending messages.
+
+\begin{figure}[htb]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+        a) & b) \\
+        \includegraphics[page=4,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
+        \includegraphics[page=5,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} \\
+            \end{tabular}
+    \caption{Wireframes: a) messages page, b) message details page} \label{fig:messages-and-details}
+\end{figure}
