@@ -1,0 +1,12 @@
+static const CREATE_USER_TABLE = 'CREATE TABLE user ('
+      'id INTEGER PRIMARY KEY,'
+      'username TEXT,'
+      'full_name TEXT,'
+      'student_number TEXT,'
+      'faculty TEXT,'
+      'subject TEXT,'
+      'degree TEXT,'
+      'specialization TEXT,'
+      'university INTEGER,'
+      'image BLOB'
+      ');';

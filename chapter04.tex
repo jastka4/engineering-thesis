@@ -129,5 +129,15 @@ Docker is a platform for developing, shipping, and running applications. It enab
 Docker team also made Docker Compose. It is a tool for defining and launching Docker applications using multiple containers. It utilizes YAML files to configure the application’s services. Then they can be created and started with just a single command.~\cite{docker-compose}
 
 \section{Database Configuration}
+The database is elementary and does not contain any relations. That is why the model-first approach was used during the implementation. All tables are created on a smartphone during the first run of the mobile application. The DBProvider class presented in Listing~\ref{list:db-provider} is a singleton and creates a new database only if none exists on the device. If the "universityTable.db" exists, it is opened and used throughout the application.
+
+\lstinputlisting[label=list:db-provider,caption=The database provider class, basicstyle=\footnotesize\ttfamily]{code04/db_provider.dart}
+
+ The "initDB" method creates new tables with the previously created scripts. An example of a script creating a user table is shown in Listing~\ref{list:create-user-table}.
+
+\lstinputlisting[label=list:create-user-table,caption=SQL script to create a user table, basicstyle=\footnotesize\ttfamily]{code04/create_user_table.dart}
+
 \section{Mobile Application Implementation}
+
+
 \section{Server Implementation}
