@@ -1,76 +1,133 @@
-\chapter{Project Design}
-\section{System Architecture}
+\chapter{Project Implementation}
+\section{Design Patterns}
+The main architectural pattern used during the development of the mobile application is called BloC (Business Logic Component). It is a pattern created by Google, especially for Flutter framework. To manage the flow of data within an app, it uses Reactive Programming, which in simple terms, is programming with asynchronous data streams. Flutter user interfaces are composed of smaller parts called widgets. When a state of a widget changes, it is redrawn automatically on the screen. If there are lots of widgets used, their state can change multiple times, and they will be redrawn, sometimes unnecessary. That can lead to performance issues. This is where the BLOC comes into play. It helps to separate logic from the user interface while maintaining the Flutter reactive model of redrawing widgets.
+
+A BLoC has two main components: Sinks and Streams, both of which are provided by a StreamController. A Stream is a source of asynchronous data events, which provides a way to receive a sequence of events. These events can be user inputs, hover events, variables, click events, network requests, and others. A Sink is a place where data or events are added and can be read by a Stream. Everything in the application should be represented as a stream of events. Some widgets submit events to the BLoC, which acts as a middleman, and other widgets will receive and react to processed data, as shown in Figure~\ref{fig:bloc-pattern}.
+
+% TODO - ask how to link this image to the post that I got it from
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.66\textwidth]{fig04/bloc_pattern.png}
+    \caption{Visual representation of the BLoC pattern} \label{fig:bloc-pattern}
+\end{figure}
+
+Using the BLoC pattern, we can manage the state of an application clearly, and it helps in writing concise and clean code. The user interface is separated from the business logic, which makes it easier to change the user interface without modifying the business logic.~\cite{bloc-pattern}
+
+% TODO - add MVC?
+
+\section{Project Management}
+\subsubsection{GitKraken Glo}
+All tasks created while developing the project were managed with GitKraken Glo Board. It is a Kanban board for task and issue tracking, which is fully integrated with GitKraken. It allows adding labels, descriptions, comments, assignees, and many others to created cards. As seen in Figure~\ref{fig:glo-board}, four statuses of tasks turned out to be enough for this system (backlog, on hold, doing, and done). Usage of the mentioned Kanban board simplified the development because it was easy to see what was already done and what still needs to be implemented.
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.66\textwidth]{fig04/system_architecture.png}
-    \caption{System architecture}
-    \label{fig:ux-flow}
+    \includegraphics[width=\textwidth]{fig04/glo_board.png}
+    \caption{An example of GitKraken Glo Board} \label{fig:glo-board}
 \end{figure}
 
-\section{Database Design}
-\section{User Interface Design}
-
-% TODO - ask what about Sketch, do I need a link or sth?
-All mobile applications should be easy to use and intuitive. In our app, we used Material Design created by Google. It is also a part of the Flutter toolkit. To make the development quicker and easier, we created wireframes for all the main views of the application. To create them, we worked with a tool called Sketch, which is simple to use and has a lot of available libraries.
-
-There are seven main screens available. All of them are shown in Figure~\ref{fig:ux-flow}. The first screen is a login screen. After users enter the correct login and password, they are redirected to the homepage. There they can see their profile info and news for their university and faculty. On the bottom, there is a navigation bar from which they can get access to an additional four pages. The first of the is the calendar page where they can see their schedule. The next one is the grades page where they can view all their grades. After it, there is the messages page where users can access their e-mails and go to the messages details page. The last one is the finances page. It allows users to see all of their payments.
+\subsubsection{GitFlow}
+GitFlow was used to ease the development of tasks. It is a branching model for Git, created by Vincent Driessen. It makes parallel development very easy because it isolates new changes from finished work. The new development is done in feature branches. They are only merged back into the main code when the developer thinks that the code is ready for release. If a person is asked to switch from one task to another, all they need to do is commit changes and create a new feature branch for the new task. When the task is done, they check out the original feature branch and can continue where they left off.
+For the purpose of the project, the GitFlow was slightly altered. A new type of branch was introduced, a bugfix branch. All fixes were committed only to this type of branch. Figure~\ref{fig:gitflow} represents a part of the commit history for the mobile application, which uses GitFlow.
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{fig04/mobile_ux_flow.png}
-    \caption{Mobile UX flow}
-    \label{fig:ux-flow}
+    \includegraphics[width=\textwidth]{fig04/gitflow.png}
+    \caption{Part of the commit history for the mobile application} \label{fig:gitflow}
 \end{figure}
 
-The first screen that is presented to users is the login screen. It is shown in Figure~\ref{fig:login-home}. There is a big logo of the application in the middle of the view. There are also two input boxes on the bottom of the screen with a button to submit them. If the data provided is incorrect, users are presented with a red error snack bar.
+% TODO - explain briefly in the project assumptions chapter and move to the chapter about implementation?
+\section{Tools and Technologies}
+\subsubsection{Flutter}
+Flutter is an open-source toolkit created by Google. It can be used to develop natively compiled applications for mobiles (iOS, Android), desktops (Mac, Linux, Windows, Google Fuchsia), and the web from a single codebase. Flutter's engine utilizes Google's Skia graphics library for low-level rendering. It is written primarily in C++. It also leverages platform-specific SDKs, for example, iOS and Android.
 
-The home screen, also presented in Figure~\ref{fig:login-home}, is the main page of the application. It contains profile info with the logged-in student's data. There is also a news feed section where users can access news from their university or faculty, depending on the configuration. In the top right corner of the screen, there are two icons. The first one allows users to log out of the application. By clicking on the next one, users can access the settings.
+Developers use the Dart language when creating Flutter applications. The toolkit runs in the Dart virtual machine that features a just-in-time execution engine. It can be used while debugging an app to do a ``hot reload'', which modifies source files and then injects them into a running application. Flutter added a stateful hot reload on top of it, wherein most cases, changes to source code can be reflected immediately in the working app without requiring a restart or any loss of state.
 
-\begin{figure}[htb]
-    \centering
-    \begin{tabular}{@{}ll@{}}
-        a) & b) \\
-        \includegraphics[page=1,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=7,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} \\
-    \end{tabular}
-    \caption{Wireframes: a) login page, b) homepage} \label{fig:login-home}
-\end{figure}
+Release versions of Flutter apps are compiled with ahead-of-time (AOT) compilation on both iOS and Android, making Flutter's high performance on mobile devices possible.~\cite{flutter-wiki}
 
-The calendar page shown in Figure~\ref{fig:calendar-finances-grades} contains a calendar with the list of dates. If a date is a holiday, there is an indicator shown in the right top corner of the container. An indicator at the bottom of the container informs users that they have some lectures during the selected date.
-When users click on a date, a list of classes is shown under the calendar. Every row contains the start and the end time of the event, its name, university teacher, classroom, and a type of the event.
+Creating UIs in Flutter involves using composition to assemble widgets from other widgets. According to the docs, ``A widget is an immutable description of part of a user interface''.~\cite{flutter} They define what their view should look like, given their current state and configuration. The widget rebuilds its description when it's state changes because the framework diffs against the previous representation to determine the minimal changes needed in the underlying render tree to transition from one state to the next.
 
-The next screen presented in Figure~\ref{fig:calendar-finances-grades} is the finances page. It is composed of a list of payments with their details. Every entry includes an amount, status, name, and the date of the payment's issue. Some of them also contain an installment number.
+Flutter aims to provide 120 frames per second (FPS) performance on devices capable of 120Hz updates and 60 FPS otherwise.
 
-The last screen from Figure~\ref{fig:calendar-finances-grades} consists of a grades list. Each entry contains a grade, number of ECTS credits, course name, type and university teacher, and issuing date. The icon in the top right corner allows users to calculate their average grade for a semester or the whole studies.
+Complex widgets can be built from other smaller ones. An app is actually the largest widget of all of them, often called ``MyApp''. Text component is a widget, but so is its TextStyle, than defines things like color, size, font-weight, and family. Some widgets represent things, others, like TextStyle, represent characteristics. There are also ones that do something, like StreamBuilder and FutureBuilder.
 
-\begin{figure}[htb]
-    \centering
-    \begin{tabular}{@{}lll@{}}
-        a) & b) & c) \\
-        \includegraphics[page=2,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=6,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=3,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} \\
-    \end{tabular}
-    \caption{Wireframes: a) calendar page, b) finances page, c) the grades page} \label{fig:calendar-finances-grades}
-\end{figure}
+An alternative option to using widgets is to use the Foundation library's methods directly. They can be used to draw text, shapes, and imagery directly on the canvas. One of the frameworks that utilized this is the open-source Flame game engine.
 
-The two last screens shown in Figure~\ref{fig:messages-and-details} present a list of messages and their details. The first page is composed of the email sender, topic, date received, and partial contents. When customers click on an email, they are redirected to the details page where the full contents of the email are shown along with Cc'd recipients. After users have read the email, they can get back to the emails list by clicking an arrow on the top of the screen. In the top right corner of the screen, there is an icon that is shown only when the user university's API allows for sending messages.
+\subsubsection{Dart}
+Dart is a client-optimized programming language developed by Google. It is multiplatform and can be used to build desktop, mobile, backend, and web applications.
 
-\begin{figure}[htb]
-    \centering
-    \begin{tabular}{@{}ll@{}}
-        a) & b) \\
-        \includegraphics[page=4,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=5,width=0.300\textwidth]{fig04/jsos_helper_wireframe.pdf} \\
-            \end{tabular}
-    \caption{Wireframes: a) messages page, b) message details page} \label{fig:messages-and-details}
-\end{figure}
+It is object-oriented, class defined, garbage-collected language. It uses a C-style syntax and can be transcompiled into JavaScript. It supports abstract classes, interfaces, mixins, static typing, reified generics, and a sound type system.
 
-% \section{Server Architecture}
+Dart code can be compiled ahead-of-time into machine code. Applications build with Flutter, a mobile app SDK built with Dart, are deployed to app stores as AOT compiled Dart code.
 
-% Do implementation
-\section{Wzorce projektowe}
-BLOC, MVVM
-\section{Zarządzanie projektem}
-glo, git flow
+Dart version 2.6 was accompanied by a new extension dart2native. It allows composing a Dart program into self-contained executables on the macOS, Linux, and Windows desktop platforms. Earlier, this feature only exposed capability on iOS and Android mobile devices via Flutter.~\cite{dart-wiki}
+
+\subsubsection{SQLite}
+SQLite is a relational database management system contained in a C-language library. It is embedded into the end program, unlike many other database management systems. It is built into most computers, all mobile phones and is bundled inside lots of applications that people use every day. It is a popular selection as an embedded database software for client/local storage in application software such as web browsers. It is one of the most used database engines, as it is used today by several widespread browsers, embedded systems, such as mobile phones, operating systems, among others. SQLite has bindings to many programming languages.
+
+SQLite is ACID-compliant and follows PostgreSQL syntax while implementing most of the SQL standard. It uses weakly and dynamically typed SQL syntax that does not guarantee the domain integrity. A string can be inserted into a column defined as an integer. SQLite will try to convert data between formats when appropriate, for example, the string ``1234'' into an integer. However, it does not guarantee such conversion and will store the data as-is if such conversion is not possible.~\cite{sqlite-wiki}
+
+\subsubsection{Android Studio}
+Android Studio is an integrated development environment created by Google and built on JetBrains' IntelliJ IDEA software. It was specially designed for Android development. It can be downloaded on macOS, Windows, and Linux based operating systems. Previous versions of Android Studio were based on Eclipse IDE.~\cite{android-studio}
+
+Flutter apps can be built using any text editor combined with Flutter command-line tools. It is best to use the Flutter plugin with Android Studio. The plugin provides users with, for example, syntax highlighting, code completion, widget editing assist, run and debug support.
+
+\subsubsection{Java}
+Java is a general-purpose, object-oriented, class-based programming language. It lets developers write once, run anywhere, so it can run on all platforms that support it without the need for recompilation.  It has been designed to have as few implementation dependencies as possible. Java applications are usually compiled into bytecode that can be run on any JVM, regardless of the architecture of the computer. The syntax of Java is similar to C++ and C, but it has fewer low-level facilities than either of them. According to GitHub, Java is currently one of the most popular programming languages used, particularly for client-server web applications~\cite{java}.
+
+\subsubsection{Spring Framework}
+Spring Framework is an open-source Java platform and a container for inversion of control. Its core features can be used in developing any Java applications. There are also extensions for creating web applications on top of the Java Enterprise Edition (Java EE) platform. The framework targets to make Java EE development more comfortable to use and promotes good programming practices by enabling a POJO-based programming model. Even though the framework does not impose any specific programming model, it has become popular in the Java community as an add-on or even a replacement for the Enterprise JavaBeans model.~\cite{spring}
+
+Spring Boot is an open-source micro-framework maintained by Pivotal company. It is pre-configured by the Spring team with the best configuration possible and use of the Spring platform and third-party libraries so that developers can quickly get started without wasting time on preparation.~\cite{spring-boot}
+
+Spring Cloud Config provides client and server-side support for externalized configuration in distributed systems. The Config Server is a central spot to manage external properties for apps across all environments. The configuration can be used with any application running in any language.~\cite{spring-cloud-config}
+
+The Spring Web MVC platform provides MVC (Model-View-Controller) architecture and components that can be used to create loosely connected and flexible web applications. The MVC pattern separates various aspects of the application (business logic, user interface logic, and input logic), providing a loose relationship between these.~\cite{spring-mvc}
+
+\begin{itemize}
+    \item Model - a POJO that encapsulates the application data;
+    \item View - responsible for rendering the model data;
+    \item Controller - responsible for processing user requests, building the appropriate model, and passing it to the view for rendering.
+\end{itemize}
+
+\subsubsection{Jolt}
+Jolt (JsOn Language for Transform) is a transformation library written in Java. It allows developers to convert one JSON structure to another using a schema created in JSON. The tool provides a set of transformation types:
+
+\begin{itemize}
+    \item shift - copies data from input to the output tree;
+    \item default - applies default values to the tree;
+    \item remove - removes data from the tree;
+    \item sort - sorts map keys alphabetically;
+    \item cardinality - adjusts the cardinality of input data.
+\end{itemize}
+
+Each of the types has its DSL, which is called a specification, that defines the new structure for outgoing JSON data.
+
+A basic approach for converting JSON to JSON in Java is to use XSLT or STX. The conversion sequence would look like this:
+\begin{center}
+\textbf{JSON -> XML -> XSLT/STX -> XML -> JSON}
+\end{center}
+
+With Jolt, the conversion sequence is simplified and looks like this:
+\begin{center}
+\textbf{JSON -> Specification JSON -> JSON}
+\end{center}
+
+The out-of-the-box Jolt should be able to do most of the structural transformation. Any complex transformation logic which cannot be expressed in standard terms can be plugged in via Java extension class with Jolt.~\cite{jolt}
+
+\subsubsection{JSON}
+JSON (JavaScript Object Notation) is a lightweight data-interchange text format that is easy for a machine to parse and generate, but also for humans to read and write. It is entirely language-independent and uses array data types and attribute-value pairs to transmit data objects. It is a widespread data format and serves as a replacement for XML in AJAX systems.~\cite{json}
+
+\subsubsection{YAML}
+AML Ain't Markup Language (YAML) is a data serialization language that has a human-readable format. It is commonly used for configuration files and in applications where data is being transmitted or stored. It targets many of the same communication applications as XML but has minimal syntax. It uses both Python-style indentations to indicate nesting, and a more compact format that uses "[]" for lists and "{}" for maps making YAML 1.2 a superset of JSON.~\cite{yaml}
+
+\subsubsection{MockServer}
+MockServer is an open-source platform used to mock systems via HTTP or HTTPS. It was designed to simplify integration testing by mocking systems such as web services or websites. It also helps in developing code against a service that is not complete or is unstable.~\cite{mockserver}
+
+\subsubsection{Docker}
+Docker is a platform for developing, shipping, and running applications. It enables to separate applications from the infrastructure so that they can be delivered quickly. It also provides an ability to package and run applications in a loosely isolated environment called a container. Many different containers can be run simultaneously on a given host.~\cite{docker}
+
+Docker team also made Docker Compose. It is a tool for defining and launching Docker applications using multiple containers. It utilizes YAML files to configure the application’s services. Then they can be created and started with just a single command.~\cite{docker-compose}
+
+\section{Database Configuration}
+\section{Mobile Application Implementation}
+\section{Server Implementation}
