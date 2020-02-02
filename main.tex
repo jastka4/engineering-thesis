@@ -22,7 +22,7 @@
 %\usepackage{soul} % pakiet z komendami do podkreślania tekstu
 
 \usepackage{ebgaramond} % pakiet z czcionkami garamond, potrzebny tylko do strony tytułowej, musi wystąpić przed pakietem tgtermes
-
+\usepackage{multicol}
 %% Aby uzyskać polskie literki w pdfie (a nie zlepki) korzystamy z pakietu czcionek tgterms. 
 %% W pakiecie tym są zdefiniowane klony czcionek Times o kształtach: normalny, pogrubiony, italic, italic pogrubiony.
 %% W pakiecie tym brakuje czcionki o kształcie: slanted (podobny do italic). 
@@ -184,11 +184,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Pakiet do generowania indeksu (ważne, aby wstawić przed hyperref)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\DisemulatePackage{imakeidx}
-\usepackage[makeindex,noautomatic]{imakeidx} % tutaj mówimy, żeby indeks nie generował się automatycznie, 
+%%%\DisemulatePackage{imakeidx}
+%%%\usepackage[makeindex,noautomatic]{imakeidx} % tutaj mówimy, żeby indeks nie generował się automatycznie, 
 
 %\usepackage[noautomatic]{imakeidx} 
-\makeindex
+%%%\makeindex
 
 \makeatletter
 %%%\renewenvironment{theindex}
@@ -508,11 +508,11 @@ SPECIALIZATION: & \@specjalnosc\\
 
 \chapterstyle{noNumbered}
 \pagestyle{outer}
-\mbox{}\pdfbookmark[0]{Spis treści}{spisTresci.1}
+\mbox{}\pdfbookmark[0]{Table of contents}{spisTresci.1}
 \tableofcontents* 
 
 \newpage
-\mbox{}\pdfbookmark[0]{Spis rysunków}{spisRysunkow.1}
+\mbox{}\pdfbookmark[0]{List of figures}{spisRysunkow.1}
 %\addcontentsline{toc}{chapter}{Spis rysunków}
 \listoffigures*
 \begin{flushleft}
@@ -526,7 +526,7 @@ SPECIALIZATION: & \@specjalnosc\\
 
 
 \newpage
-\mbox{}\pdfbookmark[0]{Spis tabel}{spisTabel.1}
+\mbox{}\pdfbookmark[0]{List of tables}{spisTabel.1}
 %\addcontentsline{toc}{chapter}{Spis tabel}
 \listoftables*
 

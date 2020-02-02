@@ -1,17 +1,16 @@
 \chapter{Project Design}
 \section{System Architecture}
 
-The system consists of two main components, as shown in Figure 1. The first is the Flutter application, which is installed on the user's smartphone. On the first run, it will create a local SQLite database with the required tables. Whenever a user logs in or navigates to a page, it will send a request for data to the second component, the server. It is composed of configuration and transformation modules. The former is responsible for providing the YAML configuration file in the transformation application. Because both use Spring Cloud Config, the transformation application does not need to be restarted when the config changes. Each time it is updated, the configuration server will pick up the changes and serve the updated content. Now beans from the client that were using the configuration must be refreshed. A simple way to do this is to send a GET request to the "/ refresh" endpoint provided by the Spring Boot Actuator.
+The system consists of two main components, as shown in Figure~\ref{fig:ux-flow}. The first is the Flutter application, which is installed on the user's smartphone. On the first run, it will create a local SQLite database with the required tables. Whenever a user logs in or navigates to a page, it will send a request for data to the second component, the server. It is composed of configuration and transformation modules. The former is responsible for providing the YAML configuration file in the transformation application. Because both use Spring Cloud Config, the transformation application does not need to be restarted when the config changes. Each time it is updated, the configuration server will pick up the changes and serve the updated content. Now beans from the client that were using the configuration must be refreshed. A simple way to do this is to send a GET request to the "/ refresh" endpoint provided by the Spring Boot Actuator.
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.66\textwidth]{fig03/system_architecture.png}
+    \includegraphics[width=0.55\textwidth]{fig03/system_architecture.png}
     \caption{System architecture}
-    \label{fig:ux-flow}
+    \label{fig:sys-architecture}
 \end{figure}
 
 When the transformation server receives a request, for example from Listing~\ref{list:login-request}, it reads the university and searches for a configuration for this particular institution.
-
 \begin{lstlisting}[label=list:login-request,caption=Sample calendar request, basicstyle=\footnotesize\ttfamily]
 {
     "username": "pwr123456",
@@ -36,12 +35,10 @@ Every transformation operation requires a specification.
 % TODO - finish this
 
 \section{Database Design}
-
 The mobile database is very straightforward. There are five separate tables as seen in Figure~\ref{fig:erd-diagram}. All of them are created during the first run of the application. Data received from the server is stored locally in the SQLite database. Every time the application sends a successful request, information in a chosen table is updated with new data. If there is no connection to the Internet, the app takes already stored details from the database instead of sending a request. Thanks to it, users can have constant access to data.
-
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.66\textwidth]{fig03/erd_diagram.pdf}
+    \includegraphics[scale=0.7]{fig03/erd_diagram-01.pdf}
     \caption{ERD diagram for the mobile database}
     \label{fig:erd-diagram}
 \end{figure}
@@ -53,9 +50,10 @@ All mobile applications should be easy to use and intuitive. In our app, we used
 
 There are seven main screens available. All of them are shown in Figure~\ref{fig:ux-flow}. The first screen is a login screen. After users enter the correct login and password, they are redirected to the homepage. There they can see their profile info and news for their university and faculty. On the bottom, there is a navigation bar from which they can get access to an additional four pages. The first of the is the calendar page where they can see their schedule. The next one is the grades page where they can view all their grades. After it, there is the messages page where users can access their e-mails and go to the messages details page. The last one is the finances page. It allows users to see all of their payments.
 
+% TO DO: poprawić rysunek, by był w układzie jak ten poniżej
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{fig03/mobile_ux_flow.png}
+    \includegraphics[width=0.83\textwidth]{fig03/mobile_ux_flow-1-2x3.png}
     \caption{Mobile UX flow}
     \label{fig:ux-flow}
 \end{figure}
@@ -68,8 +66,8 @@ The home screen, also presented in Figure~\ref{fig:login-home}, is the main page
     \centering
     \begin{tabular}{@{}ll@{}}
         a) & b) \\
-        \includegraphics[page=1,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=7,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} \\
+        {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=1,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} &
+        {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=7,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} \\
     \end{tabular}
     \caption{Wireframes: a) login page, b) homepage} \label{fig:login-home}
 \end{figure}
@@ -85,9 +83,9 @@ The last screen from Figure~\ref{fig:calendar-finances-grades} consists of a gra
     \centering
     \begin{tabular}{@{}lll@{}}
         a) & b) & c) \\
-        \includegraphics[page=2,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=6,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=3,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} \\
+        {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=2,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} &
+        {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=6,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} &
+        {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=3,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} \\
     \end{tabular}
     \caption{Wireframes: a) calendar page, b) finances page, c) the grades page} \label{fig:calendar-finances-grades}
 \end{figure}
@@ -98,8 +96,8 @@ The two last screens shown in Figure~\ref{fig:messages-and-details} present a li
     \centering
     \begin{tabular}{@{}ll@{}}
         a) & b) \\
-        \includegraphics[page=4,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} &
-        \includegraphics[page=5,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf} \\
+        {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=4,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} &
+        {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=5,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} \\
             \end{tabular}
     \caption{Wireframes: a) messages page, b) message details page} \label{fig:messages-and-details}
 \end{figure}

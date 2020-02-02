@@ -2,21 +2,26 @@
 \section{Overall Description}
 
 The main goal of the project is to create a mobile application that can be connected to an API of any university. It will be done using the Flutter framework and the Dart language. The app will be ready to run on both iOS and Android devices. Every student is required to have an existing account in their university system and log in to the mobile app to access all of the functionalities. None of them can be used as an unauthenticated user. After they log in, students will gain access to these pages:
+
+\begin{multicols}{2}
 \begin{itemize}
-    \item home (user details and news from the faculty/university);
+    \item home (user details and news);
     \item calendar with a schedule;
     \item grades;
     \item messages;
     \item message details;
     \item payments.
 \end{itemize}
+\end{multicols}
+
 Users cannot make changes to any data shown on the listed pages. It is obtained from their university services system and stored on their local devices as read-only information.
 
 When a student logs in, a token received from the student service system will be saved to secure storage on the mobile device. It will be removed if the user explicitly logs out of the application. The token will be used to obtain data from the university system. It will also allow the system to store information about users and will not require them to log in each time they open the application. To log in, users will have to complete a form, where they will have to select their university from the drop-down list and provide login and password to the account in their university system.
 
-The homepage will show user details and news from the users' faculty and university. The next page will display a calendar that users can click on to select a date. After picking the day, students will receive a list of planned lectures with specifics like start and end time, lecturer, classroom, et cetera. The grades and payments pages will provide a list of items with some type-specific details. The former will also allow students to calculate the overall average grade of all grades relative to the ECTS weighting of the courses they have completed. The last one is the messages page. It will present all messages received by users in their university system. After they select one of the e-mails, they will be redirected to a more detailed view.
+The homepage will show user details and news from the users' faculty and university. The next page will display a calendar that users can click on to select a date. After picking the day, students will receive a list of planned lectures with specifics like start and end time, lecturer, classroom, etc. The grades and payments pages will provide a list of items with some type-specific details. The former will also allow students to calculate the overall average grade of all grades relative to the ECTS weighting of the courses they have completed. The last one is the messages page. It will present all messages received by users in their university system. After they select one of the e-mails, they will be redirected to a more detailed view.
 
 \section{Functional Requirements}
+% TO DO: proszę dodać jakieś wprowadzenie (np. Poniżej zebrano wymagania funkcjonalne, które .... Funkcje dostępne dla użytkownika zebrano na przedstawionym dalej diagramie przypadków użycia)
 \begin{itemize}
     \item The software system should be integrated with university APIs.
     \item The system will translate JSON from the mobile application request into JSON compatible with the university API.
@@ -34,6 +39,7 @@ The homepage will show user details and news from the users' faculty and univers
 \end{itemize}
 
 \section{Non-functional Requirements}
+% TO DO: proszę dodać jakieś wprowadzenie (np. Poniżej zebrano wymagania niefunkcjonalne, które .....)
 \begin{itemize}
     \item The system will be composed of 3 layers: mobile database, mobile application, and transformation server.
     \item The mobile SQLite database will store user data, grades, calendar events, payments, and messages.
@@ -54,8 +60,9 @@ The homepage will show user details and news from the users' faculty and univers
 \end{itemize}
 
 \section{Use Cases}
-A use case diagram shown in Figure~\ref{fig:use-case-diagram} represents the main functionalities available to users. All of them require users to be authenticated. The diagram is simplified and does not contain connections between the "Authenticate/Authorize" use case and all the others.
+A use case diagram shown in Fig.~\ref{fig:use-case-diagram} represents the main functionalities available to users. All of them require users to be authenticated. The diagram is simplified and does not contain connections between the "Authenticate/Authorize" use case and all the others.
 
+% TO DO: diagram jest "za rzadki" (ma za dużo białej przestrzeni, owale są za duże względem tekstu)
 \begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{fig02/use_case_diagram.png}
