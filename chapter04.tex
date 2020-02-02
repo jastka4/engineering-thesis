@@ -2,7 +2,7 @@
 \section{Design Patterns}
 The main architectural pattern used during the development of the mobile application is called BloC (Business Logic Component). It is a pattern created by Google, especially for Flutter framework. To manage the flow of data within an app, it uses Reactive Programming, which in simple terms, is programming with asynchronous data streams. Flutter user interfaces are composed of smaller parts called widgets. When a state of a widget changes, it is redrawn automatically on the screen. If there are lots of widgets used, their state can change multiple times, and they will be redrawn, sometimes unnecessary. That can lead to performance issues. This is where the BLOC comes into play. It helps to separate logic from the user interface while maintaining the Flutter reactive model of redrawing widgets.
 
-A BLoC has two main components: Sinks and Streams, both of which are provided by a StreamController. A Stream is a source of asynchronous data events, which provides a way to receive a sequence of events. These events can be user inputs, hover events, variables, click events, network requests, and others. A Sink is a place where data or events are added and can be read by a Stream. Everything in the application should be represented as a stream of events. Some widgets submit events to the BLoC, which acts as a middleman, and other widgets will receive and react to processed data, as shown in Figure~\ref{fig:bloc-pattern}.
+A BLoC has two main components: Sinks and Streams, both of which are provided by a~StreamController. A Stream is a source of asynchronous data events, which provides a way to receive a sequence of events. These events can be user inputs, hover events, variables, click events, network requests, and others. A Sink is a place where data or events are added and can be read by a Stream. Everything in the application should be represented as a stream of events. Some widgets submit events to the BLoC, which acts as a middleman, and other widgets will receive and react to processed data, as shown in Figure~\ref{fig:bloc-pattern}.
 
 % TODO - ask how to link this image to the post that I got it from
 \begin{figure}[htb]
@@ -16,16 +16,16 @@ Using the BLoC pattern, we can manage the state of an application clearly, and i
 % TODO - add MVC?
 
 \section{Project Management}
-\subsubsection{GitKraken Glo}
+\paragraph{\large{GitKraken Glo}}\mbox{}\\[2pt]
 All tasks created while developing the project were managed with GitKraken Glo Board. It is a Kanban board for task and issue tracking, which is fully integrated with GitKraken. It allows adding labels, descriptions, comments, assignees, and many others to created cards. As seen in Figure~\ref{fig:glo-board}, four statuses of tasks turned out to be enough for this system (backlog, on hold, doing, and done). Usage of the mentioned Kanban board simplified the development because it was easy to see what was already done and what still needs to be implemented.
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{fig04/glo_board.png}
+    \includegraphics[width=.98\textwidth]{fig04/glo_board.png}
     \caption{An example of GitKraken Glo Board} \label{fig:glo-board}
 \end{figure}
 
-\subsubsection{GitFlow}
+\paragraph{\large{GitFlow}}\mbox{}\\[2pt]
 GitFlow was used to ease the development of tasks. It is a branching model for Git, created by Vincent Driessen. It makes parallel development very easy because it isolates new changes from finished work. The new development is done in feature branches. They are only merged back into the main code when the developer thinks that the code is ready for release. If a person is asked to switch from one task to another, all they need to do is commit changes and create a new feature branch for the new task. When the task is done, they check out the original feature branch and can continue where they left off.
 For the purpose of the project, the GitFlow was slightly altered. A new type of branch was introduced, a bugfix branch. All fixes were committed only to this type of branch. Figure~\ref{fig:gitflow} represents a part of the commit history for the mobile application, which uses GitFlow.
 
@@ -37,10 +37,10 @@ For the purpose of the project, the GitFlow was slightly altered. A new type of 
 
 % TODO - explain briefly in the project assumptions chapter and move to the chapter about implementation?
 \section{Tools and Technologies}
-\subsubsection{Flutter}
+\paragraph{\large{Flutter}}\mbox{}\\[2pt]
 Flutter is an open-source toolkit created by Google. It can be used to develop natively compiled applications for mobiles (iOS, Android), desktops (Mac, Linux, Windows, Google Fuchsia), and the web from a single codebase. Flutter's engine utilizes Google's Skia graphics library for low-level rendering. It is written primarily in C++. It also leverages platform-specific SDKs, for example, iOS and Android.
 
-Developers use the Dart language when creating Flutter applications. The toolkit runs in the Dart virtual machine that features a just-in-time execution engine. It can be used while debugging an app to do a ``hot reload'', which modifies source files and then injects them into a running application. Flutter added a stateful hot reload on top of it, wherein most cases, changes to source code can be reflected immediately in the working app without requiring a restart or any loss of state.
+Developers use the Dart language when creating Flutter applications. The toolkit runs in the Dart virtual machine that features a just-in-time execution engine. It can be used while debugging an app to do a ``hot reload'', which modifies source files and then injects them into a~running application. Flutter added a stateful hot reload on top of it, wherein most cases, changes to source code can be reflected immediately in the working app without requiring a restart or any loss of state.
 
 Release versions of Flutter apps are compiled with ahead-of-time (AOT) compilation on both iOS and Android, making Flutter's high performance on mobile devices possible.~\cite{flutter-wiki}
 
@@ -52,7 +52,7 @@ Complex widgets can be built from other smaller ones. An app is actually the lar
 
 An alternative option to using widgets is to use the Foundation library's methods directly. They can be used to draw text, shapes, and imagery directly on the canvas. One of the frameworks that utilized this is the open-source Flame game engine.
 
-\subsubsection{Dart}
+\paragraph{\large{Dart}}\mbox{}\\[2pt]
 Dart is a client-optimized programming language developed by Google. It is multiplatform and can be used to build desktop, mobile, backend, and web applications.
 
 It is object-oriented, class defined, garbage-collected language. It uses a C-style syntax and can be transcompiled into JavaScript. It supports abstract classes, interfaces, mixins, static typing, reified generics, and a sound type system.
@@ -61,20 +61,20 @@ Dart code can be compiled ahead-of-time into machine code. Applications build wi
 
 Dart version 2.6 was accompanied by a new extension dart2native. It allows composing a Dart program into self-contained executables on the macOS, Linux, and Windows desktop platforms. Earlier, this feature only exposed capability on iOS and Android mobile devices via Flutter.~\cite{dart-wiki}
 
-\subsubsection{SQLite}
+\paragraph{\large{SQLite}}\mbox{}\\[2pt]
 SQLite is a relational database management system contained in a C-language library. It is embedded into the end program, unlike many other database management systems. It is built into most computers, all mobile phones and is bundled inside lots of applications that people use every day. It is a popular selection as an embedded database software for client/local storage in application software such as web browsers. It is one of the most used database engines, as it is used today by several widespread browsers, embedded systems, such as mobile phones, operating systems, among others. SQLite has bindings to many programming languages.
 
 SQLite is ACID-compliant and follows PostgreSQL syntax while implementing most of the SQL standard. It uses weakly and dynamically typed SQL syntax that does not guarantee the domain integrity. A string can be inserted into a column defined as an integer. SQLite will try to convert data between formats when appropriate, for example, the string ``1234'' into an integer. However, it does not guarantee such conversion and will store the data as-is if such conversion is not possible.~\cite{sqlite-wiki}
 
-\subsubsection{Android Studio}
+\paragraph{\large{Android Studio}}\mbox{}\\[2pt]
 Android Studio is an integrated development environment created by Google and built on JetBrains' IntelliJ IDEA software. It was specially designed for Android development. It can be downloaded on macOS, Windows, and Linux based operating systems. Previous versions of Android Studio were based on Eclipse IDE.~\cite{android-studio}
 
 Flutter apps can be built using any text editor combined with Flutter command-line tools. It is best to use the Flutter plugin with Android Studio. The plugin provides users with, for example, syntax highlighting, code completion, widget editing assist, run and debug support.
 
-\subsubsection{Java}
+\paragraph{\large{Java}}\mbox{}\\[2pt]
 Java is a general-purpose, object-oriented, class-based programming language. It lets developers write once, run anywhere, so it can run on all platforms that support it without the need for recompilation.  It has been designed to have as few implementation dependencies as possible. Java applications are usually compiled into bytecode that can be run on any JVM, regardless of the architecture of the computer. The syntax of Java is similar to C++ and C, but it has fewer low-level facilities than either of them. According to GitHub, Java is currently one of the most popular programming languages used, particularly for client-server web applications~\cite{java}.
 
-\subsubsection{Spring Framework}
+\paragraph{\large{Spring Framework}}\mbox{}\\[2pt]
 Spring Framework is an open-source Java platform and a container for inversion of control. Its core features can be used in developing any Java applications. There are also extensions for creating web applications on top of the Java Enterprise Edition (Java EE) platform. The framework targets to make Java EE development more comfortable to use and promotes good programming practices by enabling a POJO-based programming model. Even though the framework does not impose any specific programming model, it has become popular in the Java community as an add-on or even a replacement for the Enterprise JavaBeans model.~\cite{spring}
 
 Spring Boot is an open-source micro-framework maintained by Pivotal company. It is pre-configured by the Spring team with the best configuration possible and use of the Spring platform and third-party libraries so that developers can quickly get started without wasting time on preparation.~\cite{spring-boot}
@@ -89,7 +89,7 @@ The Spring Web MVC platform provides MVC (Model-View-Controller) architecture an
     \item Controller - responsible for processing user requests, building the appropriate model, and passing it to the view for rendering.
 \end{itemize}
 
-\subsubsection{Jolt}
+\paragraph{\large{Jolt}}\mbox{}\\[2pt]
 Jolt (JsOn Language for Transform) is a transformation library written in Java. It allows developers to convert one JSON structure to another using a schema created in JSON. The tool provides a set of transformation types:
 
 \begin{itemize}
@@ -114,60 +114,61 @@ With Jolt, the conversion sequence is simplified and looks like this:
 
 The out-of-the-box Jolt should be able to do most of the structural transformation. Any complex transformation logic which cannot be expressed in standard terms can be plugged in via Java extension class with Jolt.~\cite{jolt}
 
-\subsubsection{JSON}
-JSON (JavaScript Object Notation) is a lightweight data-interchange text format that is easy for a machine to parse and generate, but also for humans to read and write. It is entirely language-independent and uses array data types and attribute-value pairs to transmit data objects. It is a widespread data format and serves as a replacement for XML in AJAX systems.~\cite{json}
+\paragraph{\large{JSON}}\mbox{}\\[2pt]
+JSON (JavaScript Object Notation) is a lightweight data-interchange text format that is easy for a machine to parse and generate, but also for humans to read and write. It is entirely language-independent and uses array data types and attribute-value pairs to transmit data objects. It is a~widespread data format and serves as a replacement for XML in AJAX systems.~\cite{json}
 
-\subsubsection{YAML}
-AML Ain't Markup Language (YAML) is a data serialization language that has a human-readable format. It is commonly used for configuration files and in applications where data is being transmitted or stored. It targets many of the same communication applications as XML but has minimal syntax. It uses both Python-style indentations to indicate nesting, and a more compact format that uses ``[]'' for lists and ``{}'' for maps making YAML 1.2 a superset of JSON.~\cite{yaml}
+\paragraph{\large{YAML}}\mbox{}\\[2pt]
+AML Ain't Markup Language (YAML) is a data serialization language that has a human-readable format. It is commonly used for configuration files and in applications where data is being transmitted or stored. It targets many of the same communication applications as XML but has minimal syntax. It uses both Python-style indentations to indicate nesting, and a more compact format that uses ``[]'' for lists and ``\{\}'' for maps making YAML 1.2 a superset of JSON.~\cite{yaml}
 
-\subsubsection{MockServer}
+\paragraph{\large{MockServer}}\mbox{}\\[2pt]
 MockServer is an open-source platform used to mock systems via HTTP or HTTPS. It was designed to simplify integration testing by mocking systems such as web services or websites. It also helps in developing code against a service that is not complete or is unstable.~\cite{mockserver}
 
-\subsubsection{Docker}
+\paragraph{\large{Docker}}\mbox{}\\[2pt]
 Docker is a platform for developing, shipping, and running applications. It enables to separate applications from the infrastructure so that they can be delivered quickly. It also provides an ability to package and run applications in a loosely isolated environment called a container. Many different containers can be run simultaneously on a given host.~\cite{docker}
 
 Docker team also made Docker Compose. It is a tool for defining and launching Docker applications using multiple containers. It utilizes YAML files to configure the application’s services. Then they can be created and started with just a single command.~\cite{docker-compose}
 
 \section{Database Configuration}
-The database is elementary and does not contain any relations. That is why the model-first approach was used during the implementation. All tables are created on a smartphone during the first run of the mobile application. The DBProvider class presented in Listing~\ref{list:db-provider} is a singleton and creates a new database only if none exists on the device. If the ``universityTable.db'' exists, it is opened and used throughout the application.
+The database is elementary and does not contain any relations. That is why the model-first approach was used during the implementation. All tables are created on a smartphone during the first run of the mobile application. The \texttt{DBProvider} class presented in Listing~\ref{list:db-provider} is a singleton and creates a new database only if none exists on the device. If the \texttt{universityTable.db} exists, it is opened and used throughout the application.
 
 \lstinputlisting[label=list:db-provider,caption=The database provider class, basicstyle=\footnotesize\ttfamily]{code04/db_provider.dart}
 
- The ``initDB'' method creates new tables with the previously created scripts. An example of a script creating a user table is shown in Listing~\ref{list:create-user-table}.
+ The \texttt{initDB} method creates new tables with the previously created scripts. An example of a~script creating a user table is shown in Listing~\ref{list:create-user-table}.
 
 \lstinputlisting[label=list:create-user-table,caption=SQL script to create a user table, basicstyle=\footnotesize\ttfamily]{code04/create_user_table.dart}
 
 \section{Mobile Application Implementation}
 
 \section{Server Implementation}
-The server is composed of two modules: transformation and configuration servers. Both of them were created with Spring Framework (Spring MVC, Spring Boot, and Spring Cloud Config). The main project has its own \textit{pom.xml} with a simple parent config. There are two separate folders for each of the modules. Apart from them, there is a global \textit{.gitignore} file for versioning of the program.
+The server is composed of two server modules: transformation and configuration. Both were created with Spring Framework (Spring MVC, Spring Boot, and Spring Cloud Config). The main project has its own \texttt{pom.xml} with a simple parent config. There are two separate folders for each of the modules. There is a global \texttt{.gitignore} file for versioning of the program.
 
-\begin{wrapfigure}{l}{0.45\textwidth}
+Figure~\ref{fig:server-client-file-structure} represents a folder structure for the first of the modules. It includes:
+\begin{itemize}
+    \item \texttt{common} - a folder containing enums available in the system, a transformation POJO used to store configuration from the YAML file, and university constants required for transformation. There is also a new exception type created specifically for this system.
+    \item\texttt{config} - contains transformation configuration class. It is a simple POJO that stores a list of every type, for example, payments, finances, et cetera.
+    \item \texttt{controllers} - a place where all controllers are placed. In this case there is only the main one, which handles every incoming request.
+    \item \texttt{services} - holds services for handling requests and transformations. It contains only interfaces, and the \texttt{impl} folder, which stores implementations of the said interfaces.
+    \item \texttt{resources} - keeps a properties file, which is a configuration read by Spring Cloud Config.
+    \item \texttt{test} - contains all tests written for the module.
+\end{itemize}
+\begin{figure}[htb]
     \centering
-    \includegraphics[width=.90\linewidth]{fig04/server-client-file-structure.png}
+    \includegraphics[width=.8\linewidth]{fig04/server-client-file-structure.png}
     \caption{File structure of the transformation module}
     \label{fig:server-client-file-structure}
-\end{wrapfigure}
-Figure~\ref{fig:server-client-file-structure} represents a folder structure for the first of the modules. Directories:
-\begin{itemize}
-    \item \textit{common} - a folder containing enums available in the system, a transformation POJO used to store configuration from the YAML file, and university constants required for transformation. There is also a new exception type created specifically for this system.
-    \item\textit{config} - contains transformation configuration class. It is a simple POJO that stores a list of every type, for example, payments, finances, et cetera.
-    \item \textit{controllers} - a place where all controllers are placed. In this case there is only the main one, which handles every incoming request.
-    \item \textit{services} - holds services for handling requests and transformations. It contains only interfaces, and the \textit{impl} folder, which stores implementations of the said interfaces.
-    \item \textit{resources} - keeps a properties file, which is a configuration read by Spring Cloud Config.
-    \item \textit{test} - contains all tests written for the module.
-\end{itemize}
+\end{figure}
 
-In addition to these structures, there is a \textit{UniversityHelperServerApplication.java} file that acts as an entry point for the entire program. The last but not least is \textit{pom.xml}, which contains information, configuration, build directory, source directory, test source directory, plugins, dependencies, et cetera used by Maven to build the module.\\
 
-Method shown in Listing~\ref{list:calendar-controller} is responsible for handling all calendar requests. It reads the incoming JSON and sends it to \textit{sendRequestToUniversityApi} method with a parameter that indicates that the request was of calendar type. If exception happens during the execution 400 status is returned with a JSON response containing the error message.
+In addition to these structures, there is a \texttt{UniversityHelperServerApplication.java} file that acts as an entry point for the entire program. The last but not least is \texttt{pom.xml}, which contains information, configuration, build directory, source directory, test source directory, plugins, dependencies, et cetera used by Maven to build the module. \\
+
+Method shown in Listing~\ref{list:calendar-controller} is responsible for handling all calendar requests. It reads the incoming JSON and sends it to \texttt{sendRequestToUniversityApi} method with a parameter that indicates that the request was of calendar type. If exception happens during the execution 400 status is returned with a JSON response containing the error message.
 
 \lstinputlisting[label=list:calendar-controller,caption=Method that handles all calendar requests, basicstyle=\footnotesize\ttfamily, breaklines=true]{code04/calendar_controller.dart}
 
-The \textit{sendRequestToUniversityApi} method shown in Listing~\ref{list:send-request} is responsible for sending a request to the chosen university's API and returning the response. The first step is to transform the input JSON to the format expected by the API. To do it, we need to get the university from the request and store it for future use. The next action is to send the transformed request and get the response. The last step is to transform the answer to the format readable by the mobile application. If the initial request contains a university not supported by the configuration or the config is missing, the UnsupportedUniversityException is thrown.
+The \texttt{sendRequestToUniversityApi} method shown in Listing~\ref{list:send-request} is responsible for sending a request to the chosen university's API and returning the response. The first step is to transform the input JSON to the format expected by the API. To do it, we need to get the university from the request and store it for future use. The next action is to send the transformed request and get the response. The last step is to transform the answer to the format readable by the mobile application. If the initial request contains a university not supported by the configuration or the config is missing, the \texttt{UnsupportedUniversityException} is thrown.
 
 \lstinputlisting[label=list:send-request,caption=Method that handles requests for university APIs, basicstyle=\footnotesize\ttfamily, breaklines=true]{code04/send_request.dart}
 
-The primary method used for transformation is shown in Listing~\ref{list:transform-json}, and it utilizes the functions of the Jolt library. First, the request must be converted from string to map of strings required by the library. Then we check if JSON is a request or response from the API and we get the matching transformation. Two last steps are to create the \textit{Chainr} object from the transformation obtained in the previous step and to finally transform the JSON input and return it as a string.
+The primary method used for transformation is shown in Listing~\ref{list:transform-json}, and it utilizes the functions of the Jolt library. First, the request must be converted from string to map of strings required by the library. Then we check if JSON is a request or response from the API and we get the matching transformation. Two last steps are to create the \texttt{Chainr} object from the transformation obtained in the previous step and to finally transform the JSON input and return it as a~string.
 
 \lstinputlisting[label=list:transform-json,caption=Method transforming JSON, basicstyle=\footnotesize\ttfamily, breaklines=true]{code04/transform_json.dart}
