@@ -136,9 +136,63 @@ The database is elementary and does not contain any relations. That is why the m
 \lstinputlisting[label=list:create-user-table,caption=SQL script to create a user table, basicstyle=\footnotesize\ttfamily]{code04/create_user_table.dart}
 
 \section{Mobile Application Implementation}
+% TODO - describe the implementation
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=.8\linewidth]{fig04/flutter-folder-structure.png}
+    \caption{Folder structure of the Flutter application}
+    \label{fig:flutter-folder-structure}
+\end{figure}
 
 \section{Server Implementation}
-The server is composed of two server modules: transformation and configuration. Both were created with Spring Framework (Spring MVC, Spring Boot, and Spring Cloud Config). The main project has its own \texttt{pom.xml} with a simple parent config. There are two separate folders for each of the modules. There is a global \texttt{.gitignore} file for versioning of the program.
+The server is composed of two server modules: configuration and transformation (Fig.~\ref{fig:server-folder-structure}. Both were created with Spring Framework (Spring MVC, Spring Boot, and Spring Cloud Config). The main project has its own \texttt{pom.xml} with a simple parent config. There are two separate folders for each of the modules. There is a global \texttt{.gitignore} file for versioning of the program.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=.4\linewidth]{fig04/server-folder-structure.png}
+    \caption{Folder structure of the transformation server}
+    \label{fig:server-folder-structure}
+\end{figure}
+
+Figure~\ref{fig:server-config-folder-structure} represents a folder structure for the first of the modules. It includes:
+\begin{itemize}
+    \item \texttt{java} - contains a package with the main class that acts as an entry point for the entire program.
+    \item \texttt{resources} - keeps a properties file, which is a configuration for the Spring Cloud Config.
+    \item \texttt{test} - contains all tests written for the module.
+\end{itemize}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=.4\linewidth]{fig04/server-config-folder-structure.png}
+    \caption{Folder structure of the configuration module}
+    \label{fig:server-config-folder-structure}
+\end{figure}
+
+The \texttt{UniversityHelperServerConfigApplication} file is the main class of the configuration module. \texttt{@EnableConfigServer} annotation was used to enable Spring Cloud Config for the program. It allows to share the specified configuration between many microservices and applications.
+
+\begin{lstlisting}[label=list:server-config-main-class,caption=Server configuration main class, basicstyle=\footnotesize\ttfamily]
+@SpringBootApplication
+@EnableConfigServer
+public class UniversityHelperServerConfigApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(UniversityHelperServerConfigApplication.class, args);
+	}
+}
+\end{lstlisting}
+
+The properties for the Spring Cloud Config:
+\begin{itemize}
+    \item \texttt{server.port} - sets the server on which the module will run.
+    \item \texttt{spring.cloud.config.server.git.uri} - specifies the URI of the remote repository containing the property files that will be served by the configuration service.
+    \item \texttt{spring.cloud.config.server.git.clone-on-start} - determines whether the configuration from the repository should be cloned when starting the module.
+\end{itemize}
+
+\begin{lstlisting}[label=list:spring-cloud-config-properties,caption=Spring Cloud Config properties, basicstyle=\footnotesize\ttfamily]
+server.port=8888
+spring.cloud.config.server.git.uri=https://github.com/jastka4/university-helper-config
+spring.cloud.config.server.git.clone-on-start=true
+\end{lstlisting}
 
 Figure~\ref{fig:server-client-folder-structure} represents a folder structure for the second of the modules. It includes:
 \begin{itemize}
