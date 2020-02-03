@@ -129,11 +129,11 @@ Docker team also made Docker Compose. It is a tool for defining and launching Do
 \section{Database Configuration}
 The database is elementary and does not contain any relations. That is why the model-first approach was used during the implementation. All tables are created on a smartphone during the first run of the mobile application. The \texttt{DBProvider} class presented in Listing~\ref{list:db-provider} is a singleton and creates a new database only if none exists on the device. If the \texttt{universityTable.db} exists, it is opened and used throughout the application.
 
-\lstinputlisting[label=list:db-provider,caption=The database provider class, basicstyle=\footnotesize\ttfamily]{code04/db_provider.dart}
+\lstinputlisting[label=list:db-provider,caption=The database provider class]{code04/db_provider.dart}
 
  The \texttt{initDB} method creates new tables with the previously created scripts. An example of a~script creating a user table is shown in Listing~\ref{list:create-user-table}.
 
-\lstinputlisting[label=list:create-user-table,caption=SQL script to create a user table, basicstyle=\footnotesize\ttfamily]{code04/create_user_table.dart}
+\lstinputlisting[label=list:create-user-table,caption=SQL script to create a user table]{code04/create_user_table.dart}
 
 \section{Mobile Application Implementation}
 % TODO - describe the implementation
@@ -215,12 +215,12 @@ In addition to these structures, there is a \texttt{UniversityHelperServerApplic
 
 Method shown in Listing~\ref{list:calendar-controller} is responsible for handling all calendar requests. It reads the incoming JSON and sends it to \texttt{sendRequestToUniversityApi} method with a parameter that indicates that the request was of calendar type. If exception happens during the execution 400 status is returned with a JSON response containing the error message.
 
-\lstinputlisting[label=list:calendar-controller,caption=Method that handles all calendar requests, basicstyle=\footnotesize\ttfamily, breaklines=true]{code04/calendar_controller.dart}
+\lstinputlisting[label=list:calendar-controller,caption=Method that handles all calendar requests]{code04/calendar_controller.dart}
 
 The \texttt{sendRequestToUniversityApi} method shown in Listing~\ref{list:send-request} is responsible for sending a request to the chosen university's API and returning the response. The first step is to transform the input JSON to the format expected by the API. To do it, we need to get the university from the request and store it for future use. The next action is to send the transformed request and get the response. The last step is to transform the answer to the format readable by the mobile application. If the initial request contains a university not supported by the configuration or the config is missing, the \texttt{UnsupportedUniversityException} is thrown.
 
-\lstinputlisting[label=list:send-request,caption=Method that handles requests for university APIs, basicstyle=\footnotesize\ttfamily, breaklines=true]{code04/send_request.dart}
+\lstinputlisting[label=list:send-request,caption=Method that handles requests for university APIs]{code04/send_request.dart}
 
 The primary method used for transformation is shown in Listing~\ref{list:transform-json}, and it utilizes the functions of the Jolt library. First, the request must be converted from a string to map of strings required by the library. Then we check if JSON is a request or response from the API and we get the matching transformation. Two last steps are to create the \texttt{Chainr} object from the transformation obtained in the previous step and to finally transform the JSON input and return it as a~string.
 
-\lstinputlisting[label=list:transform-json,caption=Method transforming JSON, basicstyle=\footnotesize\ttfamily, breaklines=true]{code04/transform_json.dart}
+\lstinputlisting[label=list:transform-json,caption=Method transforming JSON]{code04/transform_json.dart}

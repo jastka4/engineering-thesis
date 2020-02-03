@@ -11,7 +11,7 @@ The system consists of two main components, as shown in Figure~\ref{fig:sys-arch
 \end{figure}
 
 When the transformation server receives a request, for example from Listing~\ref{list:login-request}, it reads the university and searches for a configuration for this particular institution.
-\begin{lstlisting}[label=list:login-request,caption=Sample calendar request, basicstyle=\footnotesize\ttfamily]
+\begin{lstlisting}[label=list:login-request,caption=Sample calendar request]
 {
     "username": "pwr123456",
     "university": "pwr",
@@ -22,7 +22,7 @@ When the transformation server receives a request, for example from Listing~\ref
 
 A sample YAML configuration for calendars is shown in Listing~\ref{list:calendar-config}. It contains an object with the name ``pwr'' and a configuration for this university. Every config entry has to contain a~name, endpoint address, a specification for Jolt transformation for request and response.
 
-\begin{lstlisting}[label=list:calendar-config,caption=Sample YAML configuration for calendars, basicstyle=\footnotesize\ttfamily, breaklines=true]
+\begin{lstlisting}[label=list:calendar-config,caption=Sample YAML configuration for calendars]
 calendars:
     - name: 'pwr'
       address: 'http://localhost:1080/calendars'
