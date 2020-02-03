@@ -17,10 +17,10 @@ When the transformation server receives a request, for example from Listing~\ref
     "university": "pwr",
     "startDate": "2020-01-01T00:00:00.000",
     "endDate": "2020-02-01T00:00:00.000",
-},
+}
 \end{lstlisting}
 
-A sample YAML configuration for calendars is shown in Listing~\ref{list:calendar-config}. It contains an object with the name ``pwr'' and a configuration for this university. Every config entry has to contain a~name, address, a specification for Jolt transformation for request and response.
+A sample YAML configuration for calendars is shown in Listing~\ref{list:calendar-config}. It contains an object with the name ``pwr'' and a configuration for this university. Every config entry has to contain a~name, endpoint address, a specification for Jolt transformation for request and response.
 
 \begin{lstlisting}[label=list:calendar-config,caption=Sample YAML configuration for calendars, basicstyle=\footnotesize\ttfamily, breaklines=true]
 calendars:
@@ -47,11 +47,11 @@ The mobile database is very straightforward. There are five separate tables as s
 
 All mobile applications should be easy to use and intuitive. In our app, we used Material Design~\cite{material-design} created by Google. It is also a part of the Flutter toolkit. To make the development quicker and easier, we created wireframes for all the main views of the application. To create them, we worked with a tool called Sketch~\cite{sketch}, which is simple to use and has a lot of available libraries.
 
-There are seven main screens available with a navigation flow as shown in Figure~\ref{fig:ux-flow}. The first screen is a login screen. After users enter the correct login and password, they are redirected to the homepage. There they can see their profile info and news for their university and faculty. On the bottom, there is a navigation bar from which they can get access to an additional four pages. The first of the is the calendar page where they can see their schedule. The next one is the grades page where they can view all their grades. After it, there is the messages page where users can access their e-mails and go to the messages details page. The last one is the finances page. It allows users to see all of their payments.
-% TODO: poprawić rysunek, by był w układzie jak ten poniżej.
+There are seven main screens available with a navigation flow as shown in Figure~\ref{fig:ux-flow}. The first screen is a login screen. After users enter the correct login and password, they are redirected to the homepage. There they can see their profile info and news for their university and faculty. On the bottom, there is a navigation bar from which they can get access to an additional four pages. The first of them is the calendar page where they can see their schedule. The next one is the grades page where they can view all their grades. After it, there is the messages page where users can access their e-mails and go to the messages details page. The last one is the finances page. It allows users to see all of their payments.
+
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.83\textwidth]{fig03/mobile_ux_flow-1-2x3.png}
+    \includegraphics[width=0.5\textwidth]{fig03/mobile_ux_flow.png}
     \caption{Mobile UX flow}
     \label{fig:ux-flow}
 \end{figure}

@@ -10,11 +10,8 @@ There are some places where the Internet connection is extremely slow, unstable,
 
 Some universities have their mobile applications allowing students to browse news feed from their faculty and university, see calendars, grades, and other information. They let users send and check emails from other students and lecturers. Some educational institutions do not have mobile apps. They use systems that can be accessed only via web browsers. Wrocław University of Science and Technology also has one. It is not optimized for mobile devices, and some functionalities are difficult to access from a phone. The service also gets unavailable from time to time, returning an error message. Usually, when many people try to access it at the same time, for example, during an examination session. That has been an inspiration for the project described in the thesis. It is designed to improve the mobile experience and allow users to access the data when the system is offline.
 
-% TODO - refer to other solutions offering a required set of functions - I've found only these two applications
+Two similar solutions exist in Poland. Both of them are represented in Figure~\ref{fig:similar-solutions}. One was explicitly created for the University of Warsaw (Fig.~\ref{fig:similar-solutions}a).~\cite{mobilny-usos} We draw inspiration from it to include some functionalities like news feed and mailbox in our project. Unlike the first app, the second one (Fig.~\ref{fig:similar-solutions}b) can show data for more than one university.~\cite{kiedy-wyklad} Users have to choose what university they attend, and then they can see their calendar, grades, and some other data from the chosen university system. This is what we wanted to achieve while designing our application. Most of our attention went to creating a simple and extensible API. The program represented in the document was designed to provide better user experience than the second solution described here, and it is supposed to be easily expendable by YAML files, new widgets, and views.
 
-Two similar solutions exist in Poland. Both of them are represented in Figure~\ref{fig:similar-solutions}. One was explicitly created for the University of Warsaw (Fig.~\ref{fig:similar-solutions}a). We draw inspiration from it to include some functionalities like news feed and mailbox in our project. Unlike the first app, the second one (Fig.~\ref{fig:similar-solutions}b) can show data for more than one university. Users have to choose what university they attend, and then they can see their calendar, grades, and some other data from the chosen university system. This is what we wanted to achieve while designing our application. Most of our attention went to creating a simple and extensible API. The program represented in the document was designed to provide better user experience than the second solution described here, and it is supposed to be easily expendable by YAML files, new widgets, and views.
-
-% TODO - ask if I can use these graphics and how to link them
 \begin{figure}[htb]
     \centering
     \begin{tabular}{@{}ll@{}}
@@ -26,17 +23,17 @@ Two similar solutions exist in Poland. Both of them are represented in Figure~\r
 \end{figure}
 
 \section{Objectives and Scope of Thesis}
-%  TODO - add more details?
 The main objective of this thesis is to create a mobile application for both iOS and Android, which will allow users to log in with credentials for their educational institution system, and get access to data published in a student service system. It will store some of the information in a local SQLite database to let users access them offline. Thanks to it, students will be able to see the details when the student services system is down, or they have limited access to the Internet. 
 The mobile application will allow logged-in students to access:
 %{\setlength\multicolsep{0pt plus 2pt}%
+% http://site.uit.no/english/writing-style/bulletlist/
 \begin{multicols}{2}
 \begin{itemize}
-    \item news feed for a university or faculty,
-    \item profile details,
-    \item calendar with class details,
-    \item list of grades for every semester,
-    \item messages and their details,
+    \item university or faculty news feed;
+    \item profile details;
+    \item calendar with class details;
+    \item list of grades for every semester;
+    \item messages and their details;
     \item list of payments.
 \end{itemize}
 \end{multicols}
