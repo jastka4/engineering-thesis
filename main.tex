@@ -274,6 +274,7 @@ Listing \thelstlisting: #1\hfill%\hfill%
 \fi
 \sloppy
 
+\def\UrlBreaks{\do\/\do-\do_} % dodane by lepiej łamać urle
 
 %\graphicspath{{rys01/}{rys02/}}
 
@@ -594,6 +595,7 @@ SPECIALIZATION: & \@specjalnosc\\
 %UWAGA: bibliotekę referencji należy przygotować samemu. Dobrym do tego narzędziem jest JabRef.
 %       Nazwę przygotowanej biblioteki wpisuje się poniżej bez rozszerzenia 
 %       (w tym przypadku jest to "dokumentacja.bib")
+\setlength{\bibitemsep}{2pt}
 \bibliography{bibliography}
 \appendix
 \include{appendixA}
