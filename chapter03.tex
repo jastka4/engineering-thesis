@@ -32,7 +32,7 @@ Operation type stated in the spec copies data from the input to the output tree 
 The mobile database is very straightforward. There are five separate tables as seen in Figure~\ref{fig:erd-diagram}. All of them are created during the first run of the application. Data received from the server is stored locally in the SQLite database. Every time the application sends a successful request, information in a chosen table is updated with new data. If there is no connection to the Internet, the app takes already stored details from the database instead of sending a request. Thanks to it, users can have constant access to data.
 \begin{figure}[htb]
     \centering
-    \includegraphics[scale=0.7]{fig03/erd_diagram.pdf}
+    \includegraphics[scale=0.8]{fig03/erd_diagram.pdf}
     \caption{ERD diagram for the mobile database}
     \label{fig:erd-diagram}
 \end{figure}

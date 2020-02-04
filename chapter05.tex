@@ -12,7 +12,7 @@ A widget test (sometimes called the component test) tests a single widget~\cite{
 
 For instance, widgets that are being tested should be able to receive and respond to user events and actions, perform layout, and instantiate child widgets. This kind of test is more comprehensive than a unit test. Though, like unit tests, a widget tests' environment is replaced with an implementation much more straightforward than a fully developed UI system.
 
-Two examples of widget tests are shown in Listing~\ref{list:widget-test}. First, we need to create a \texttt{CustomCard} widget that will be tested in the next steps. The component is responsible for rendering items in grades and payments lists (see Fig~\ref{fig:calendar-finances-grades}). The \texttt{buildTestableWidget} method wraps the widget with the \texttt{MaterialApp} and \texttt{MediaQuery} so that it can be built and tested correctly.
+Two examples of widget tests are shown in Listing~\ref{list:widget-test}. First, we need to create a \texttt{CustomCard} widget that will be tested in the next steps. The component is responsible for rendering items in grades and payments lists (see Figure~\ref{fig:calendar-finances-grades}). The \texttt{buildTestableWidget} method wraps the widget with the \texttt{MaterialApp} and \texttt{MediaQuery} so that it can be built and tested correctly.
 
 The next part checks if the ``CustomCard widget has aside, right and left widgets''. First, we have to build \texttt{CustomCard} inside the test environment by using the \texttt{pumpWidget} method provided by WidgetTester. It builds and renders the provided widget.
 
