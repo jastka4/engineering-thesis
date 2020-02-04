@@ -137,21 +137,21 @@ The database is elementary and does not contain any relations. That is why the m
 \section{Mobile Application Implementation}
 The mobile application is the largest part of the project. It uses Flutter framework and the BLoC pattern, which imposes a particular folder structure (Fig.~\ref{fig:flutter-folder-structure}):
 \begin{itemize}
-    \item \texttt{.dart\_tools} - used by pub and other tools.
-    \item \texttt{.idea} - contains IntelliJ’s project specific settings files.
-    \item \texttt{android} - stores Android native project that is used when building the app for Android devices.
-    \item \texttt{build} - holds the compiled code of the Flutter application.
-    \item \texttt{images} - contains all image assets used by the app. It could also be placed inside the \texttt{lib} folder.
-    \item \texttt{ios} - only available when working on macOS. Stores XCode iOS native project that is used when building the app for iOS devices.
-    \item \texttt{lib} - holds Dart files containing Flutter application code.
-    \item \texttt{blocs} - composed of different BLoC components used throughout the app. Each of them has a dedicated folder for storing the main BLoC logic, event, and state classes.
-    \item \texttt{common} - contains common files (providers, helpers, enums).
-    \item \texttt{dao} - a place with all DAOs.
-    \item \texttt{models} - keeps all models.
-    \item \texttt{repositories} - a folder containing repositories that are used by components to fetch data from the API or database, depending on the availability. Inside each of the files is a logic determining if users have an active connection to the Internet. They also store downloaded data in a database.
-    \item \texttt{services} - holds services responsible for fetching data from the API.
-    \item \texttt{ui} - stores all UI elements that are divided into reusable \texttt{components} and \texttt{screens} holding views.
-    \item \texttt{tests} - contains all tests written for the application.
+    \item \texttt{.dart\_tools} -- used by pub and other tools.
+    \item \texttt{.idea} -- contains IntelliJ’s project specific settings files.
+    \item \texttt{android} -- stores Android native project that is used when building the app for Android devices.
+    \item \texttt{build} -- holds the compiled code of the Flutter application.
+    \item \texttt{images} -- contains all image assets used by the app. It could also be placed inside the \texttt{lib} folder.
+    \item \texttt{ios} -- only available when working on macOS. Stores XCode iOS native project that is used when building the app for iOS devices.
+    \item \texttt{lib} -- holds Dart files containing Flutter application code.
+    \item \texttt{blocs} -- composed of different BLoC components used throughout the app. Each of them has a dedicated folder for storing the main BLoC logic, event, and state classes.
+    \item \texttt{common} -- contains common files (providers, helpers, enums).
+    \item \texttt{dao} -- a place with all DAOs.
+    \item \texttt{models} -- keeps all models.
+    \item \texttt{repositories} -- a folder containing repositories that are used by components to fetch data from the API or database, depending on the availability. Inside each of the files is a logic determining if users have an active connection to the Internet. They also store downloaded data in a database.
+    \item \texttt{services} -- holds services responsible for fetching data from the API.
+    \item \texttt{ui} -- stores all UI elements that are divided into reusable \texttt{components} and \texttt{screens} holding views.
+    \item \texttt{tests} -- contains all tests written for the application.
 \end{itemize}
 \begin{figure}[t]
     \centering
@@ -169,7 +169,7 @@ The first type of elements are the Business Logic Components (see Section~\ref{s
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[]{fig04/bloc_diagram-01.pdf}
+    \includegraphics[]{fig04/bloc_diagram.pdf}
     \caption{High-level BLoC diagram (based on~\cite{bloc-diagram})}
     \label{fig:bloc-diagram}
 \end{figure}
