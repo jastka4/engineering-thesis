@@ -1,0 +1,5 @@
+calendars:
+    - name: 'pwr'
+      address: 'http://localhost:1080/calendars'
+      request: '[{"operation": "shift","spec": {"username": "user","studentNumber": "indeks","startDate": "date.start","endDate": "date.end"}}]'
+      response: '[{"operation": "shift","spec": {"events": {"*": {"eventName": "events.[&1].name","room": "events.[&1].classroom","type": "events.[&1].eventType","date": {"start": "events.[&2].startDateTime","end": "events.[&2].endDateTime"},"*": "events.[&1].&"}}}}]'

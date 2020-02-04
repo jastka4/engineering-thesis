@@ -11,28 +11,22 @@ The system consists of two main components, as shown in Figure~\ref{fig:sys-arch
 \end{figure}
 
 When the transformation server receives a request, for example from Listing~\ref{list:login-request}, it reads the university and searches for a configuration for this particular institution.
-\begin{lstlisting}[label=list:login-request,caption=Sample calendar request]
-{
-    "username": "pwr123456",
-    "university": "pwr",
-    "startDate": "2020-01-01T00:00:00.000",
-    "endDate": "2020-02-01T00:00:00.000",
-}
-\end{lstlisting}
+
+\lstinputlisting[label=list:login-request,caption=Sample calendar request]{code03/calendar-request.json}
 
 A sample YAML configuration for calendars is shown in Listing~\ref{list:calendar-config}. It contains an object with the name ``pwr'' and a configuration for this university. Every config entry has to contain a~name, endpoint address, a specification for Jolt transformation for request and response.
 
-\begin{lstlisting}[label=list:calendar-config,caption=Sample YAML configuration for calendars]
-calendars:
-    - name: 'pwr'
-      address: 'http://localhost:1080/calendars'
-      request: '[{"operation": "shift","spec": {"username": "user","studentNumber": "indeks","startDate": "date.start","endDate": "date.end"}}]'
-      response: '[{"operation": "shift","spec": {"events": {"*": {"eventName": "events.[&1].name","room": "events.[&1].classroom","type": "events.[&1].eventType","date": {"start": "events.[&2].startDateTime","end": "events.[&2].endDateTime"},"*": "events.[&1].&"}}}}]'
-\end{lstlisting}
+\lstinputlisting[label=list:calendar-config,caption=Sample YAML configuration for calendars]{code03/calendar-config.yml}
 
-Every transformation operation requires a specification.
+Every transformation operation requires a specification. Below is an example of conversion from one JSON schema (List.~\ref{list:json-input}) to another (List.~\ref{list:json-output}) using a JSON spec file (List.~\ref{list:json-spec}).
 
-% TODO - finish this
+\lstinputlisting[label=list:json-input,caption=JSON transformation input]{code03/json-input.json}
+
+\lstinputlisting[label=list:json-output,caption=JSON transformation output]{code03/json-output.json}
+
+Operation type stated in the spec copies data from the input to the output tree without changing. Then we go inside the \texttt{events} array and get each entry with ``\texttt{*}''. The next step is to map \texttt{eventName} to \texttt{name} inside the output \texttt{events} array. Later we map \texttt{room} to \texttt{classroom} and \texttt{type} to \texttt{eventType}. Further, we go inside the \texttt{date} object and get \texttt{} and \texttt{end} and map it to \texttt{startDateTime} and \texttt{endDateTime} inside the output \texttt{events} array. The last action is to get the remaining, not mapped keys, and copy them into the \texttt{events} array.
+
+\lstinputlisting[label=list:json-spec,caption=Transformation specification]{code03/json-spec.json}
 
 \section{Database Design}
 The mobile database is very straightforward. There are five separate tables as seen in Figure~\ref{fig:erd-diagram}. All of them are created during the first run of the application. Data received from the server is stored locally in the SQLite database. Every time the application sends a successful request, information in a chosen table is updated with new data. If there is no connection to the Internet, the app takes already stored details from the database instead of sending a request. Thanks to it, users can have constant access to data.
@@ -47,7 +41,7 @@ The mobile database is very straightforward. There are five separate tables as s
 
 All mobile applications should be easy to use and intuitive. In our app, we used Material Design~\cite{material-design} created by Google. It is also a part of the Flutter toolkit. To make the development quicker and easier, we created wireframes for all the main views of the application. To create them, we worked with a tool called Sketch~\cite{sketch}, which is simple to use and has a lot of available libraries.
 
-Every mobile application requires a logo. To design a temporary one (Fig.~\ref{fig:app-logo}), we used a website created by FreeLogoDesign.~\cite{freelogodesign} It allows users to create logos by selecting templates and then customizing them using the built-in HTML5 wizard. It is free to use for low-resolution images, which was sufficient for our purpose.
+Every mobile application requires a logo. To design a temporary one (Fig.~\ref{fig:app-logo}), we used a website created by FreeLogoDesign~\cite{freelogodesign}. It allows users to create logos by selecting templates and then customizing them using the built-in HTML5 wizard. It is free to use for low-resolution images, which was sufficient for our purpose.
 
 \begin{figure}[htb]
     \centering
