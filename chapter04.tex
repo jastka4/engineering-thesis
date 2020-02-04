@@ -6,7 +6,7 @@ A BLoC has two main components: Sinks and Streams, both of which are provided by
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.5\textwidth]{fig04/bloc_pattern-01.pdf}
+    \includegraphics[width=0.5\textwidth]{fig04/bloc_pattern.pdf}
     \caption{Visual representation of the BLoC pattern (based on~\cite{bloc-image})} \label{fig:bloc-pattern}
 \end{figure}
 
@@ -57,7 +57,7 @@ It is object-oriented, class defined, garbage-collected language. It uses a C-st
 
 Dart code can be compiled ahead-of-time into machine code. Applications build with Flutter, a mobile app SDK built with Dart, are deployed to app stores as AOT compiled Dart code.
 
-Dart version 2.6 was accompanied by a new extension dart2native. It allows composing a Dart program into self-contained executables on the macOS, Linux, and Windows desktop platforms. Earlier, this feature only exposed capability on iOS and Android mobile devices via Flutter.~\cite{dart-wiki}
+Dart version 2.6 was accompanied by a new extension dart2native. It allows composing a Dart program into self-contained executables on the macOS, Linux, and Windows desktop platforms. Earlier, this feature only exposed capability on iOS and Android mobile devices via Flutter~\cite{dart-wiki}.
 
 \paragraph{\large{SQLite}}\mbox{}\\[2pt]
 SQLite is a relational database management system contained in a C-language library~\cite{sqlite}. It is embedded into the end program, unlike many other database management systems. It is built into most computers, all mobile phones and is bundled inside lots of applications that people use every day. It is a popular selection as an embedded database software for client/local storage in application software such as web browsers. It is one of the most used database engines, as it is used today by several widespread browsers, embedded systems, such as mobile phones, operating systems, among others. SQLite has bindings to many programming languages.
@@ -145,7 +145,7 @@ The database is elementary and does not contain any relations. That is why the m
 \end{figure}
 
 \section{Server Implementation}
-The server is composed of two server modules: configuration and transformation (Fig.~\ref{fig:server-folder-structure}. Both were created with Spring Framework (Spring MVC, Spring Boot, and Spring Cloud Config). The main project has its own \texttt{pom.xml} with a simple parent config. There are two separate folders for each of the modules. There is a global \texttt{.gitignore} file for versioning of the program.
+The server is composed of two server modules: configuration and transformation (Fig.~\ref{fig:server-folder-structure}. Both were created with Spring Framework (Spring MVC, Spring Boot, and Spring Cloud Config). The main project has its own \texttt{pom.xml} with a simple parent config. There are two separate folders for each of the modules. There is a global \texttt{.gitignore} file for versioning of the program. \texttt{.idea} and \texttt{.mvn} contain project-specific settings for IntelliJ IDEA and Maven.
 
 \begin{figure}[htb]
     \centering
