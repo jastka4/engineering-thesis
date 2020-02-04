@@ -1,3 +1,33 @@
 \chapter{Description of the attached CD/DVD}
-Tutaj jest miejsce na zamieszczenie opisu zawartości załączonej płyty.
-Należy wymienić, co zawiera.
+The attached disk contains code and builds of the created applications (Fig~\ref{fig:directory structure}). The \texttt{mobile} directory contains \texttt{code} and \texttt{release} folders. Inside the first one is the source code of the Flutter mobile application with license and readme files. The second one holds Android application packages (APK) for three different architectures (\texttt{app-arm64-v8a-release.apk}, \texttt{app-armeabi-v7a-release.apk}, \texttt{app-x86\_64-release.apk}), as well as a build dedicated to iOS devices (\texttt{jsos\_helper.app}). All of them can be run on a smartphone or a computer using emulation software.
+
+\begin{figure}[htb]
+    \footnotesize{\ttfamily{
+        \dirtree{%
+        .1 root.
+        .2 mobile.
+        .3 code.
+        .4 ....
+        .3 release.
+        .4 app-arm64-v8a-release.apk.
+        .4 app-armeabi-v7a-release.apk.
+        .4 app-x86\_64-release.apk.
+        .4 jsos\_helper.app.
+        .2 server.
+        .3 code.
+        .4 ....
+        .3 release.
+        .4 docker-compose.yml.
+        .4 mockserver-config.
+        .5 initializerJson.json.
+        .5 mockserver.properties.
+        .4 transformation-config.
+        .5 university-helper-server.yml.
+        .4 university-helper-server-client-1.0.0.jar.
+        .4 university-helper-server-config-1.0.0.jar.
+        }
+    }}
+    \caption{Disk directory structure} \label{fig:directory structure}
+\end{figure}
+
+The server subtree contains the \texttt{code} folder with the source code of the translation and configuration modules. Inside the parent project, there are license and readme files. In the \texttt{release} folder, there is the \texttt{docker-compose.yml} file for running the entire server and the mocking service at once. The \texttt{mockserver-config} holds MockService startup configuration. The \texttt{transformation-config} stores Spring Cloud Config properties used to translate JSON schemas. Last but not least, there are two jars (\texttt{university-helper-server-client-1.0.0.jar}, \texttt{university-helper-server-config-1.0.0.jar}), one for each server module.
