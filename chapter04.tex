@@ -1,5 +1,6 @@
 \chapter{Project Implementation}
 \section{Design Patterns}
+\label{section:bloc-pattern}
 The main architectural pattern used during the development of the mobile application is called BloC (Business Logic Component)~\cite{bloc-pattern}. It is a pattern created by Google, especially for Flutter framework. To manage the flow of data within an app, it uses Reactive Programming~\cite{reactive-programming}, which in simple terms, is programming with asynchronous data streams. Flutter user interfaces are composed of smaller parts called widgets. When a state of a widget changes, it is redrawn automatically on the screen. If there are lots of widgets used, their state can change multiple times, and they will be redrawn, sometimes unnecessary. That can lead to performance issues. This is where the BLOC comes into play. It helps to separate logic from the user interface while maintaining the Flutter reactive model of redrawing widgets.
 
 A BLoC has two main components: Sinks and Streams, both of which are provided by a~StreamController. A Stream is a source of asynchronous data events, which provides a way to receive a sequence of events. These events can be user inputs, hover events, variables, click events, network requests, and others. A Sink is a place where data or events are added and can be read by a Stream. Everything in the application should be represented as a stream of events. Some widgets submit events to the BLoC, which acts as a middleman, and other widgets will receive and react to processed data, as shown in Figure~\ref{fig:bloc-pattern}.
@@ -136,13 +137,92 @@ The database is elementary and does not contain any relations. That is why the m
 \lstinputlisting[label=list:create-user-table,caption=SQL script to create a user table]{code04/create_user_table.dart}
 
 \section{Mobile Application Implementation}
-% TODO - describe the implementation
+The mobile application is the largest part of the project when it comes to coding and testing. It uses Flutter framework and the BLoC pattern, which imposes a particular folder structure (Fig.~\ref{fig:flutter-folder-structure}):
+\begin{itemize}
+    \item \texttt{.dart\_tools} - used by pub and other tools.
+    \item \texttt{.idea} - contains IntelliJ’s project specific settings files.
+    \item \texttt{android} - stores Android native project that is used when building the app for Android devices.
+    \item \texttt{build} - holds the compiled code of the Flutter application.
+    \item \texttt{images} - contains all image assets used by the app. It could also be placed inside the \texttt{lib} folder.
+    \item \texttt{ios} - only available when working on macOS. Stores XCode iOS native project that is used when building the app for iOS devices.
+    \item \texttt{lib} - holds Dart files containing Flutter application code.
+    \item \texttt{blocs} - composed of different BLoC components used throughout the app. Each of them has a dedicated folder for storing the main BLoC logic, event, and state classes.
+    \item \texttt{common} - contains common files (providers, helpers, enums).
+    \item \texttt{dao} - a place with all DAOs.
+    \item \texttt{models} - keeps all models.
+    \item \texttt{repositories} - a folder containing repositories that are used by components to fetch data from the API or database, depending on the availability. Inside each of the files is a logic determining if users have an active connection to the Internet. They also store downloaded data in a database.
+    \item \texttt{services} - holds services responsible for fetching data from the API.
+    \item \texttt{ui} - stores all UI elements that are divided into reusable \texttt{components} and \texttt{screens} holding views.
+    \item \texttt{tests} - contains all tests written for the application.
+\end{itemize}
+
+In addition to these structures, there is a \texttt{.gitignore} file used for the program versioning. \texttt{pubspec.yaml} is a place where developers can provide all the required dependencies and project configuration.
+
 \begin{figure}[htb]
     \centering
     \includegraphics[width=.8\linewidth]{fig04/flutter-folder-structure.png}
     \caption{Folder structure of the Flutter application}
     \label{fig:flutter-folder-structure}
 \end{figure}
+
+% ---------------------------------------------
+
+\paragraph{\large{BLoC}}\mbox{}\\[2pt]
+The first type of elements are the Business Logic Components (see Section~\ref{section:bloc-pattern}). They manage the flow of data within the application using asynchronous data streams. In the context of the program, a BLoC takes a stream of events as an input and transforms them into a stream of states as output (Fig.~\ref{fig:bloc-diagram}).
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=.8\linewidth]{fig04/bloc_diagram.pdf}
+    \caption{High-level BLoC diagram (based on~\cite{bloc-diagram})}
+    \label{fig:bloc-diagram}
+\end{figure}
+
+Events are the input of a BLoC. They are often UI events, such as pressing a button. Events are dispatched and then converted to states. The Listing~\ref{list:login-event} shows an example of the event implementation. It is a simple object that stores \texttt{username}, \texttt{password}, and \texttt{university}. It has a simple constructor and a \texttt{toString} method. \texttt{Equatable} overrides \texttt{==} and \texttt{hashCode} so objects can be easily compared.
+
+\lstinputlisting[label=list:login-event,caption=Login event]{code04/login_event.dart}
+
+States are the output of a BLoC. All presentation components can listen to the state stream and redraw their parts based on the given state. Listing~\ref{list:login-state} represents a simple class used for login, with multiple states available. Each of them can have different attributes and implementation; for example, \texttt{LoginFailure} differs from the rest.
+
+\lstinputlisting[label=list:login-state,caption=Login state]{code04/login_state.dart}
+
+The last but not least is the actual logic of the BLoC (List.~\ref{list:login-bloc}). It uses previously defined state and event classes, and it has two attributes (\texttt{userRepository} and \texttt{authenticationBloc}). The initial state of the BLoC is set to \texttt{LoginInitial}. Besides the constructor and a simple getter, there is a \texttt{mapEventToState} method. It converts the incoming events into states which are consumed by the presentation layer. If the event is \texttt{LoginButtonPressed}, the state is changed into \texttt{LoginLoading}. Next, it tries to authenticate the user and dispatch a \texttt{LoggedIn} event for the \texttt{authenticationBloc}. The last part is to change the state into the initial state. If any error occurs, the state is changed to \texttt{LoginFailure}, and the details of the error are passed there.
+
+\lstinputlisting[label=list:login-bloc,caption=Login BLoC]{code04/login_bloc.dart}
+
+% ---------------------------------------------
+
+\paragraph{\large{DAO}}\mbox{}\\[2pt]
+Another type of components used in the system are DAOs. It is a pattern that provides an abstract interface for communication between the application and the database. DAO methods are very similar, and an example is shown in Listing~\ref{list:grades-dao}. The first step is to establish a connection to SQLite. After it has been successful, we query the database, map the results to \texttt{Grade} object, and return the list.
+
+\lstinputlisting[label=list:grades-dao,caption=Getter method defined in the grades DAO]{code04/grades_dao.dart}
+
+% ---------------------------------------------
+
+\paragraph{\large{Model}}\mbox{}\\[2pt]
+The model is a simple data structure with lots of properties. It has a constructor, \texttt{toMap}, and \texttt{toString} methods. Besides them, there are factory constructors capable of creating objects from JSON (List.~\ref{list:payment-model}) or map structure.
+
+\lstinputlisting[label=list:payment-model,caption=Payment factory constructor]{code04/payment_model.dart}
+
+% ---------------------------------------------
+
+\paragraph{\large{Repository}}\mbox{}\\[2pt]
+The next type is the repository, which is responsible for fetching data from the database or API, depending on the availability. The \texttt{getCalendarEvents} method (List.~\ref{list:calendar-repository}) obtains customer's data such as username and university, which are required by the API. Next, we verify if the mobile device has an active Internet connection. If not, we get calendar events from the local database. If the user has access to the web, we try to fetch events from the service and update the local database.
+
+\lstinputlisting[label=list:calendar-repository,caption=Getter method defined in the calendar repository]{code04/calendar_repository.dart}
+
+% ---------------------------------------------
+
+\paragraph{\large{Service}}\mbox{}\\[2pt]
+The service is a component responsible for fetching data from an external API. \texttt{fetchCalendarEvents} method (List.~\ref{list:calendar-service}) retrieves calendar events for selected dates and a student. It sends a POST request with JSON body and waits for a response. After it successfully obtained the data, it maps the response to the \texttt{CalendarEvent} and returns it. If the \texttt{statusCode} is different from 200, it throws an exception.
+
+\lstinputlisting[label=list:calendar-service,caption=Calendar service]{code04/calendar_service.dart}
+
+% ---------------------------------------------
+
+\paragraph{\large{UI}}\mbox{}\\[2pt]
+The last type of components in the application are UI widgets. They allow building views by simply stacking widgets on top of each other. Listing~\ref{list:home-screen} shows a \texttt{build} method of the home screen. It draws a \texttt{Scaffold} with an app bar build by a private method \texttt{\_buildAppBar}. Under it, there is a \texttt{Container} with a scrollable view, that has two rows. The first one is the profile info, and the second is the news feed. It also uses \texttt{\_authenticationBloc} to manage user data.
+
+\lstinputlisting[label=list:home-screen,caption=Build method of the home screen]{code04/home_screen.dart}
 
 \section{Server Implementation}
 The server is composed of two server modules: configuration and transformation (Fig.~\ref{fig:server-folder-structure}. Both were created with Spring Framework (Spring MVC, Spring Boot, and Spring Cloud Config). The main project has its own \texttt{pom.xml} with a simple parent config. There are two separate folders for each of the modules. There is a global \texttt{.gitignore} file for versioning of the program. \texttt{.idea} and \texttt{.mvn} contain project-specific settings for IntelliJ IDEA and Maven.
