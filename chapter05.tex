@@ -2,7 +2,48 @@
 \section{Mobile Application Tests}
 \subsection{Unit Tests}
 \subsection{Widget Tests}
-\subsection{User Interface Tests}
-\subsection{Performance Tests}
+A widget test (sometimes called the component test) tests a single widget~\cite{testing-flutter}. The goal of it is to check that the widget's UI looks and interacts as expected. Testing a widget involves many classes and requires a test environment that provides the appropriate widget life cycle context.
+
+For instance, widgets that are being tested should be able to receive and respond to user events and actions, perform layout, and instantiate child widgets. This kind of test is more comprehensive than a unit test. Though, like unit tests, a widget tests' environment is replaced with an implementation much more straightforward than a fully developed UI system.
+
+Two examples of widget tests are shown in Listing~\ref{list:widget-test}. First, we need to create a \texttt{CustomCard} widget that will be tested in the next steps. The component is responsible for rendering items in grades and payments lists (see Fig~\ref{fig:calendar-finances-grades}). The \texttt{buildTestableWidget} method wraps the widget with the \texttt{MaterialApp} and \texttt{MediaQuery} so that it can be built and tested correctly.
+
+The next part checks if the ``CustomCard widget has aside, right and left widgets''. First, we have to build \texttt{CustomCard} inside the test environment by using the \texttt{pumpWidget} method provided by WidgetTester. It builds and renders the provided widget.
+
+The following steps use the \texttt{find} method to search through the widget tree for the aside, right, and left widget. Then, as a result, we expect to locate one \texttt{asideWidget}, two \texttt{rightWidget}s, and one \texttt{leftWidget} component. The test ends successfully if all expected values match what has been found by using \texttt{Finder}.
+
+The second test also uses the \texttt{CustomCard} type. It verifies that the ``CustomCard widget has a color''. First, we have to build the component, and then we can create a predicate used to filter widgets. We want to find only components that are \texttt{Containers} and have a decoration attribute equal to the specified \texttt{BoxDecoration}. If such components are found, the test passes.
+
+\lstinputlisting[label=list:widget-test,caption=Flutter widget tests]{code05/widget_test.dart}
+
+% \subsection{User Interface Tests}
+% \subsection{Performance Tests}
+
 \section{Server Application Tests}
-% \subsection{Unit Tests}
+The transformation server required some manual testing when creating the configuration YAML files. All of it was done from the Postman application~\cite{postman}. A sample POST request to fetch calendar data shown in Listing~\ref{list:calendar-request} was used to test the transformation configuration.
+
+\begin{lstlisting}[label=list:calendar-request,caption=Sample content of the POST request to fetch calendar data]
+{
+	"university": "pwr",
+	"username": "pwr230115",
+	"studentNumber": "123456",
+	"startDate": "2020-01-01",
+	"endDate": "2020-01-31"
+}
+\end{lstlisting}
+
+Apart from the manual testing, the transformation was validated by unit tests. One of them is demonstrated below (List.~\ref{list:transformation-service-test}) and checks if the function responsible for translating all incoming requests and responses works as expected. It is a Spring Boot test, as indicated by the \texttt{@SpringBootTest} annotation. At the top of the \texttt{TransformationServiceTest} class are the static strings used to prepare the tests:
+\begin{itemize}
+    \item \texttt{REQUEST\_SPEC} - Jolt specification for the request;
+    \item \texttt{RESPONSE\_SPEC} - Jolt specification for the response;
+    \item \texttt{ADDRESS} - the API endpoint;
+    \item \texttt{UNIVERSITY} - the chosen university;
+    \item \texttt{CALENDAR\_JSON\_INPUT} - sample calendar request;
+    \item \texttt{CALENDAR\_JSON\_OUTPUT} - expected calendar response.
+\end{itemize}
+
+\texttt{@BeforeAll} annotation placed above the \texttt{initAll} indicates that the method executes only once, before any test function. Inside it, a new transformation is initialized using predefined static strings.
+
+The last method, called \texttt{transformCalendarJson}, tests the \texttt{transformJson} method from the \texttt{transformationService} class, which was autowired at the beginning. The \texttt{output} variable stores the result of the JSON transformation, which is compared, int the end, with the expected output. If they are equal, the test passes, if they are not the same or there was an exception while creating a new \texttt{JSONObject}, the test fails.
+
+\lstinputlisting[label=list:transformation-service-test,caption=Tests for the transformation service requests]{code05/TransformationServiceTest.java}
