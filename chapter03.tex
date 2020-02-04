@@ -38,8 +38,7 @@ The mobile database is very straightforward. There are five separate tables as s
 \end{figure}
 
 \section{User Interface Design}
-
-All mobile applications should be easy to use and intuitive. In our app, we used Material Design~\cite{material-design} created by Google. It is also a part of the Flutter toolkit. To make the development quicker and easier, we created wireframes for all the main views of the application. To create them, we worked with a tool called Sketch~\cite{sketch}, which is simple to use and has a lot of available libraries.
+All mobile applications should be easy to use and intuitive. In our app, we used Material Design~\cite{material-design} created by Google. It is also a part of the Flutter toolkit. To make the development quicker and easier, we created wireframes for all the main views of the application using a tool called Sketch~\cite{sketch}. It is simple to use and has a lot of available libraries.
 
 Every mobile application requires a logo. To design a temporary one (Fig.~\ref{fig:app-logo}), we used a website created by FreeLogoDesign~\cite{freelogodesign}. It allows users to create logos by selecting templates and then customizing them using the built-in HTML5 wizard. It is free to use for low-resolution images, which was sufficient for our purpose.
 
@@ -54,7 +53,7 @@ There are seven main screens available with a navigation flow as shown in Figure
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=0.6\textwidth]{fig03/mobile_ux_flow.png}
+    \includegraphics[width=0.65\textwidth]{fig03/mobile_ux_flow.png}
     \caption{Mobile UX flow}
     \label{fig:ux-flow}
 \end{figure}
@@ -70,10 +69,10 @@ The home screen (Fig.~\ref{fig:login-home}b), is the main page of the applicatio
         {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=1,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} &
         {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=7,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} \\
     \end{tabular}
-    \caption{Wireframes: a) login page, b) homepage} \label{fig:login-home}
+    \caption{Wireframes: a) login screen, b) home screen} \label{fig:login-home}
 \end{figure}
 
-The calendar page (Fig.~\ref{fig:calendar-finances-grades}a) contains a calendar with the list of dates. If a date is a holiday, there is an indicator shown in the right top corner of the container. An indicator at the bottom of the container informs users that they have some lectures during the selected date.
+The calendar screen (Fig.~\ref{fig:calendar-finances-grades}a) contains a calendar with the list of dates. If a date is a holiday, there is an indicator shown in the right top corner of the container. An indicator at the bottom of the container informs users that they have some lectures during the selected date.
 When users click on a date, a list of classes is shown under the calendar. Every row contains the start and the end time of the event, its name, university teacher, classroom, and a type of the event.
 
 The next screen (Fig.~\ref{fig:calendar-finances-grades}b) is the finances page. It is composed of a list of payments with their details. Every entry includes an amount, status, name, and the date of the payment's issue. Some of them also contain an installment number.
@@ -88,7 +87,7 @@ The last screen (Fig.~\ref{fig:calendar-finances-grades}c) consists of a grades 
         {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=6,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} &
         {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=3,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} \\
     \end{tabular}
-    \caption{Wireframes: a) calendar page, b) finances page, c) the grades page} \label{fig:calendar-finances-grades}
+    \caption{Wireframes: a) calendar screen, b) finances screen, c) grades screen} \label{fig:calendar-finances-grades}
 \end{figure}
 
 The two last screens shown in Figure~\ref{fig:messages-and-details} present a list of messages and their details. The first page is composed of the email sender, topic, date received, and partial contents. When customers click on an email, they are redirected to the details page where the full contents of the email are shown along with Cc'd recipients. After users have read the email, they can get back to the emails list by clicking an arrow on the top of the screen. In the top right corner of the screen, there is an icon that is shown only when the user university's API allows for sending messages.
@@ -100,5 +99,5 @@ The two last screens shown in Figure~\ref{fig:messages-and-details} present a li
         {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=4,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} &
         {\setlength{\fboxsep}{0pt}\setlength{\fboxrule}{1pt}\fbox{\includegraphics[page=5,width=0.300\textwidth]{fig03/jsos_helper_wireframe.pdf}}} \\
             \end{tabular}
-    \caption{Wireframes: a) messages page, b) message details page} \label{fig:messages-and-details}
+    \caption{Wireframes: a) messages screen, b) message details screen} \label{fig:messages-and-details}
 \end{figure}
