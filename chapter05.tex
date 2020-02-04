@@ -1,6 +1,12 @@
 \chapter{Project Tests}
 \section{Mobile Application Tests}
 \subsection{Unit Tests}
+A unit test tests a single class, method, or function~\cite{testing-flutter}. The purpose of the unit test is to check the correctness of a logical unit under various conditions. External dependencies of the tested unit are usually mocked out. Unit tests generally do not render to screen, read from, or write to disk, or receive user actions from outside of the process running the test.
+
+An example of such a test is shown in Listing~\ref{list:login-bloc-test}. First, we have to mock the UserRepository and AuthenticationBloc to eliminate any distortions. In the setUp method, we instantiate a new instance of AuthenticationBloc to ensure that each test runs under the same conditions and does not affect subsequent tests. The tearDown method runs after each test and destroys all unused objects. Next is a group of tests that imitates a user pressing the login button. First, we set the expected response, which consists of three states. In the end, we expect that the LoginBloc will yield LoginInitial, followed by a LoginLoading and lastly a LoginInitial in response to the LoginButtonPressed event.
+
+\lstinputlisting[label=list:login-bloc-test,caption=Flutter login BLoC test]{code05/login_bloc_test.dart}
+
 \subsection{Widget Tests}
 A widget test (sometimes called the component test) tests a single widget~\cite{testing-flutter}. The goal of it is to check that the widget's UI looks and interacts as expected. Testing a widget involves many classes and requires a test environment that provides the appropriate widget life cycle context.
 
@@ -15,9 +21,6 @@ The following steps use the \texttt{find} method to search through the widget tr
 The second test also uses the \texttt{CustomCard} type. It verifies that the ``CustomCard widget has a color''. First, we have to build the component, and then we can create a predicate used to filter widgets. We want to find only components that are \texttt{Containers} and have a decoration attribute equal to the specified \texttt{BoxDecoration}. If such components are found, the test passes.
 
 \lstinputlisting[label=list:widget-test,caption=Flutter widget tests]{code05/widget_test.dart}
-
-% \subsection{User Interface Tests}
-% \subsection{Performance Tests}
 
 \section{Server Application Tests}
 The transformation server required some manual testing when creating the configuration YAML files. All of it was done from the Postman application~\cite{postman}. A sample POST request to fetch calendar data shown in Listing~\ref{list:calendar-request} was used to test the transformation configuration.
